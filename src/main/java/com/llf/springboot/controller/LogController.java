@@ -21,26 +21,25 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@Api(value = "日志信息接口", tags = {"日志信息接口"})
+@Api(value = "日志信息接口",tags = {"日志信息接口"})
 public class LogController {
 
     @Autowired
     private LogService logService;
 
-    @ApiOperation(value = "增加日志信息接口", notes = "增加日志信息")
+    @ApiOperation(value="增加日志信息接口", notes="增加日志信息")
     @RequestMapping(value = "/log/insertkey", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "strs", value = "用户列表", required = true,
                     dataType = "string", paramType = "List")
     })
     public ResponseJSONResult insertkey(String strs) {
-        strs = "{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
+        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
         try {
-            strs = strs.replace("=", ":");
-            strs = strs.replace(" ", ",");
-            Map map = JSON.parseObject(strs);
-            System.out.println(map);
-            if (logService.insertkey(map) == 1) {
+            strs=strs.replace("=", ":");
+            strs=strs.replace(" ", ",");
+            Map map=JSON.parseObject(strs);
+            if(logService.insertkey(map) == 1) {
                 return ResponseJSONResult.ok(1);
             } else {
                 return ResponseJSONResult.ok(0);
@@ -51,9 +50,123 @@ public class LogController {
         }
     }
 
-    @RequestMapping(value = "/log/deleteByKey")
-    public String deleteById(Long id) {
-        logService.deleteByKey(id);
-        return "1";
+    @ApiOperation(value="删除日志信息接口", notes="删除日志信息")
+    @RequestMapping(value = "/log/deleteByKey", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户列表", required = true,
+                    dataType = "Long", paramType = "list")
+    })
+    public ResponseJSONResult deleteByKey(Long id) {
+        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
+
+        if (logService.deleteByKey(id) != 1) {
+            return ResponseJSONResult.ok(0);
+        } else {
+            return ResponseJSONResult.ok(1);
+        }
+
+    }
+
+    @ApiOperation(value="删除日志信息接口", notes="删除日志信息")
+    @RequestMapping(value = "/log/deleteByid", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户列表", required = true,
+                    dataType = "Long", paramType = "list")
+    })
+    public ResponseJSONResult deleteByid(Long id) {
+        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
+
+        if (logService.deleteByid(id) != 1) {
+            return ResponseJSONResult.ok(0);
+        } else {
+            return ResponseJSONResult.ok(1);
+        }
+
+    }
+
+    @ApiOperation(value="查找日志信息接口", notes="查找日志信息")
+    @RequestMapping(value = "/log/selectList", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "log", value = "用户列表", required = true,
+                    dataType = "Log", paramType = "List")
+    })
+
+    public ResponseJSONResult selectList(Log log){
+        List<Log> list = logService.selectList(log);
+        PagedResult result = new PagedResult();
+        /*if (page == null) {
+            page = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        int count = list.size();
+        if (count > 0) {
+            result.setTotal(count % pageSize == 0 ? count / pageSize : count / pageSize + 1);
+            result.setPage(page);
+            result.setRecords(count);
+            result.setRows(list.subList(page == 1 ? 0 : (page - 1) * pageSize,
+                    count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
+                            (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
+        }*/
+        return ResponseJSONResult.ok(list);
+    }
+
+    @ApiOperation(value="根据日志id查找日志信息接口", notes="根据日志id查找日志信息")
+    @RequestMapping(value = "/log/selectLogById", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户列表", required = true,
+                    dataType = "Long", paramType = "List")
+    })
+
+    public ResponseJSONResult selectLogById(Long id){
+        List<Log> list = logService.selectLogById(id);
+        PagedResult result = new PagedResult();
+        /*if (page == null) {
+            page = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        int count = list.size();
+        if (count > 0) {
+            result.setTotal(count % pageSize == 0 ? count / pageSize : count / pageSize + 1);
+            result.setPage(page);
+            result.setRecords(count);
+            result.setRows(list.subList(page == 1 ? 0 : (page - 1) * pageSize,
+                    count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
+                            (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
+        }*/
+        return ResponseJSONResult.ok(list);
+    }
+
+    @ApiOperation(value="更新日志信息接口", notes="更新日志信息")
+    @RequestMapping(value = "/log/updateByKey", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "log", value = "用户列表", required = true,
+                    dataType = "Log", paramType = "list")
+    })
+    public ResponseJSONResult updateByKey(Log log) {
+        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
+
+        if (logService.updateByKey(log) != 1) {
+            return ResponseJSONResult.ok(0);
+        } else {
+            return ResponseJSONResult.ok(1);
+        }
+
+    }
+
+    @ApiOperation(value="详细信息日志信息接口", notes="详细信息日志信息")
+    @RequestMapping(value = "/log/detailsLog", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "log", value = "用户列表", required = true,
+                    dataType = "Log", paramType = "list")
+    })
+    public Log detailsLog(Log log) {
+        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
+
+        return logService.detailsLog(log);
+
     }
 }

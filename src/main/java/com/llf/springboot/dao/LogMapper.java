@@ -18,4 +18,8 @@ public interface LogMapper {
     int updateByKey(Log log);
 
     Log detailsLog(Log log);
+
+    List<Log> selectLogById(Long id);
+
+    int deleteByid(Long id);
 }

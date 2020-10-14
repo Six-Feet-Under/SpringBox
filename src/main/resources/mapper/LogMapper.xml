@@ -17,69 +17,64 @@
   	</sql>
 
     <select id="selectList" resultMap="BaseResultMap" parameterType="com.llf.springboot.model.Log">
-        select
-        <include refid="Base_Column_List"/>
-        from log
-        <where>
-            <if test="id != null">
-                id = #{id,jdbcType=VARCHAR}
-            </if>
-            <if test="fid != null">
-                AND types = #{types,jdbcType=VARCHAR}
-            </if>
-            <if test="actionId != null">
-                AND actionId = #{actionId,jdbcType=BIGINT}
-            </if>
-            <if test="actionResult != null">
-                AND actionResult = #{actionResult,jdbcType=BIGINT}
-            </if>
-            <if test="uid != null">
-                AND uid = #{uid,jdbcType=BIGINT}
-            </if>
-        </where>
+         select * from log
     </select>
 
-<!--    <update id="deleteByKey" parameterType="com.llf.springboot.model.Log">
+    <select id="selectLogById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select * from log where id = #{id,jdbcType=BIGINT}
+    </select>
 
-    update log where id = #{id,jdbcType=BIGINT}
+    <update id="deleteByKey" parameterType="java.lang.Long">
+        update log where id = #{id,jdbcType=BIGINT}
+  </update>
 
-  </update>-->
-
-    <delete id="deleteByKey" parameterType="java.lang.Long">
-        delete log where id = ${id}
+    <delete id="deleteByid" parameterType="java.lang.Long">
+        delete from log where id = #{id,jdbcType=BIGINT}
     </delete>
 
     <insert id="insertkey" parameterType="java.util.HashMap">
-    insert into log (types, actionId, uid, time, dataStr)
-    values (#{type},#{actionId}, #{uid}, #{time},#{dataStr})
+        insert into log (types, actionId, uid, time, dataStr)
+        values (#{type},#{actionId}, #{uid}, #{time},#{dataStr})
   </insert>
 
     <update id="updateByKey" parameterType="com.llf.springboot.model.Log">
-        update log
+        <!--update log
         <set>
-            <if test="types != null">
-                AND types = #{types,jdbcType=VARCHAR}
-            </if>
-            <if test="actionId != null">
-                AND actionId = #{actionId,jdbcType=BIGINT}
-            </if>
+			<if test="types != null">
+				AND types = #{types,jdbcType=VARCHAR}
+			</if>
+			<if test="actionId != null">
+				AND actionId = #{actionId,jdbcType=BIGINT}
+			</if>
             <if test="actionResult != null">
                 AND actionResult = #{actionResult,jdbcType=VARCHAR}
             </if>
-            <if test="uid != null">
-                AND uid = #{uid,jdbcType=BIGINT}
-            </if>
-            <if test="target != null">
-                AND target = #{target,jdbcType=VARCHAR}
-            </if>
+			<if test="uid != null">
+				AND uid = #{uid,jdbcType=BIGINT}
+			</if>
+			<if test="target != null">
+				AND target = #{target,jdbcType=VARCHAR}
+			</if>
             <if test="time != null">
                 AND time = #{time,jdbcType=BIGINT}
             </if>
-            <if test="dataStr != null">
-                AND dataStr = #{dataStr,jdbcType=VARCHAR}
-            </if>
+			<if test="dataStr != null">
+				AND dataStr = #{dataStr,jdbcType=VARCHAR}
+			</if>
         </set>
-        where id = #{id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}-->
+
+        UPDATE
+        `henengtest`.`log`
+        SET
+        `types` = #{types,jdbcType=VARCHAR},
+        `actionId` = #{actionId,jdbcType=BIGINT},
+        `actionResult` = #{actionResult,jdbcType=VARCHAR},
+        `uid` = #{uid,jdbcType=BIGINT},
+        `target` = #{target,jdbcType=VARCHAR},
+        `time` = #{time,jdbcType=BIGINT},
+        `dataStr` = #{dataStr,jdbcType=VARCHAR}
+        WHERE `id` = #{id,jdbcType=BIGINT} ;
     </update>
 
     <select id="detailsLog" resultMap="BaseResultMap" parameterType="com.llf.springboot.model.Log">
