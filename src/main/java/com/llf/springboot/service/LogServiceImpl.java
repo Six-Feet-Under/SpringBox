@@ -21,8 +21,8 @@ public class LogServiceImpl implements LogService{
     }
 
     @Override
-    public void deleteByKey(Long id) {
-        logMapper.deleteByKey(id);
+    public int deleteByKey(Long id) {
+        return logMapper.deleteByKey(id);
     }
 
     @Override
@@ -34,5 +34,20 @@ public class LogServiceImpl implements LogService{
     @Override
     public int updateByKey(Log log) {
         return logMapper.updateByKey(log);
+    }
+
+    @Override
+    public List<Log> selectLogById(Long id) {
+        return logMapper.selectLogById(id);
+    }
+
+    @Override
+    public Log detailsLog(Log log) {
+        return logMapper.detailsLog(log);
+    }
+
+    @Override
+    public int deleteByid(Long id) {
+        return logMapper.deleteByid(id);
     }
 }

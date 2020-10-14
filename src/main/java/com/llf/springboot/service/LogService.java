@@ -11,9 +11,15 @@ public interface LogService {
 
     List<Log> selectList(Log log);
 
-    void deleteByKey(Long id);
+    int deleteByKey(Long id);
 
     int insertkey(Map map);
 
     int updateByKey(Log log);
+
+    List<Log> selectLogById(Long id);
+
+    Log detailsLog(Log log);
+
+    int deleteByid(Long id);
 }
