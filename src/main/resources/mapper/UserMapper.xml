@@ -42,60 +42,61 @@
     <select id="checkkey"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
         select time from user where id = #{_id}
     </select>
-    
+
     <delete id="deleteByKey"  parameterType="java.util.HashMap">
-    update user
-     <set>
-         abandon = 'false'
-     </set>
-     where id = #{_id}
-  </delete>
+        update user
+        <set>
+            abandon = 'false'
+        </set>
+        where id = #{_id}
+    </delete>
 
     <insert id="insertkey" parameterType="java.util.HashMap">
     insert into user (id, uid, name, pwd, phone,time, timeOut, timeMake, pwdhint,grade,abandon)
     values (#{_id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{PwdHint}, #{Grade}, #{Abandon})
   </insert>
 
+
     <update id="updateByKey" parameterType="java.util.HashMap">
         update user set time = #{time}
-			<if test="uid != null">
-				,uid = #{uid}
-			</if>
-			<if test="name != null">
-				, name = #{name}
-			</if>
-            <if test="pwd != null">
-                ,pwd = #{pwd}
-            </if>
-			<if test="phone != null">
-				, phone = #{phone}
-			</if>
-            <if test="timeOut != null">
-                , timeOut = #{timeOut}
-            </if>
-            <if test="timeMake != null">
-                , timeMake = #{timeMake}
-            </if>
-			<if test="PwdHint != null">
-				, pwdhint = #{PwdHint}
-			</if>
-			<if test="Grade != null">
-				, grade = #{Grade}
-			</if>
-			<if test="Abandon != null">
-				, abandon = #{Abandon}
-			</if>
+        <if test="uid != null">
+            ,uid = #{uid}
+        </if>
+        <if test="name != null">
+            , name = #{name}
+        </if>
+        <if test="pwd != null">
+            ,pwd = #{pwd}
+        </if>
+        <if test="phone != null">
+            , phone = #{phone}
+        </if>
+        <if test="timeOut != null">
+            , timeOut = #{timeOut}
+        </if>
+        <if test="timeMake != null">
+            , timeMake = #{timeMake}
+        </if>
+        <if test="PwdHint != null">
+            , pwdhint = #{PwdHint}
+        </if>
+        <if test="Grade != null">
+            , grade = #{Grade}
+        </if>
+        <if test="Abandon != null">
+            , abandon = #{Abandon}
+        </if>
         where id = #{_id}
     </update>
 
-    <select id="login" resultType="com.llf.springboot.model.User" parameterType="com.llf.springboot.model.User">
-        select
-        <include refid="Base_Column_List"/>
-        from user
-        <where>
-            name = #{name , jdbcType=VARCHAR}
-        </where>
-    </select>
+    <!--    <select id="login" resultType="com.llf.springboot.model.User" parameterType="com.llf.springboot.model.User">-->
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from user-->
+    <!--        <where>-->
+    <!--            name = #{name , jdbcType=VARCHAR}-->
+    <!--        </where>-->
+    <!--    </select>-->
 
     <select id="detailsAccountAndPhone" resultType="com.llf.springboot.model.User" parameterType="com.llf.springboot.model.User">
         select
@@ -118,4 +119,31 @@
             </if>
         </where>
     </select>
+
+    <select id="login"  resultType="com.llf.springboot.model.User" parameterType="java.lang.Long">
+        select *
+        from user
+        where name =#{name} and pwd =#{pwd}
+    </select>
+
+    <delete id="deleteUserById" parameterType="java.lang.Integer" >
+        delete
+        from user
+        where id =#{id}
+    </delete>
+
+    <select id="selectUserById"  resultType="com.llf.springboot.model.User" parameterType="java.lang.Long">
+        select *
+        from user
+        where id =#{id}
+    </select>
+
+    <insert id="registerUser" parameterType="com.llf.springboot.model.User" >
+        insert into user (uid,name,pwd,grade,abandon) values(#{uid},#{name},#{pwd},#{grade},#{abandon})
+    </insert>
+
+    <update id="updateUser" parameterType="com.llf.springboot.model.User">
+        update user set uid =#{uid},name =#{name},pwd= #{pwd},phone =#{phone},grade= #{grade},abandon =#{abandon}
+        where id =#{id}
+    </update>
 </mapper>

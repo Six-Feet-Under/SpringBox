@@ -1,6 +1,7 @@
 package com.llf.springboot.dao;
 
 import com.llf.springboot.model.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,9 +15,18 @@ public interface UserMapper {
     int deleteByKey(Map map);
 
     int insertkey(Map map);
-    
+
     Map checkkey(Map map);
 
     int updateByKey(Map map);
 
+    User login(@Param("name") String name, @Param("pwd") String pwd);
+
+    void deleteUserById(int id);
+
+    User selectUserById(Long id);
+
+    void registerUser(User user);
+
+    void updateUser(User user);
 }

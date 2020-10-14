@@ -20,10 +20,49 @@ public class User {
     private Long timeMake;
     /** 用户数据 json格式参数, 启用标记 权限 指纹标记 操作*/
     private String pwdhint;
-    /** 创建时间*/
+    /** 等级*/
     private String grade;
     /** 创建时间*/
     private String abandon;
+
+    public User() {
+    }
+
+    public User(String uid, String name, String pwd, String phone, Long time, Long timeOut, Long timeMake, String pwdhint, String grade, String abandon) {
+        this.uid = uid;
+        this.name = name;
+        this.pwd = pwd;
+        this.phone = phone;
+        this.time = time;
+        this.timeOut = timeOut;
+        this.timeMake = timeMake;
+        this.pwdhint = pwdhint;
+        this.grade = grade;
+        this.abandon = abandon;
+    }
+
+    public User(Long id, String uid, String name, String pwd, String phone, Long time, Long timeOut, Long timeMake, String pwdhint, String grade, String abandon) {
+        this.id = id;
+        this.uid = uid;
+        this.name = name;
+        this.pwd = pwd;
+        this.phone = phone;
+        this.time = time;
+        this.timeOut = timeOut;
+        this.timeMake = timeMake;
+        this.pwdhint = pwdhint;
+        this.grade = grade;
+        this.abandon = abandon;
+    }
+//
+//    public User(String uid, String name, String pwd, Long timeMake, String grade, String abandon) {
+//        this.uid = uid;
+//        this.name = name;
+//        this.pwd = pwd;
+//        this.timeMake = timeMake;
+//        this.grade = grade;
+//        this.abandon = abandon;
+//    }
 
     public Long getId() {
         return id;
@@ -34,30 +73,30 @@ public class User {
     }
 
     public String getPwdhint() {
-		return pwdhint;
-	}
+        return pwdhint;
+    }
 
-	public void setPwdhint(String pwdhint) {
-		this.pwdhint = pwdhint;
-	}
+    public void setPwdhint(String pwdhint) {
+        this.pwdhint = pwdhint;
+    }
 
-	public String getGrade() {
-		return grade;
-	}
+    public String getGrade() {
+        return grade;
+    }
 
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
 
-	public String getAbandon() {
-		return abandon;
-	}
+    public String getAbandon() {
+        return abandon;
+    }
 
-	public void setAbandon(String abandon) {
-		this.abandon = abandon;
-	}
+    public void setAbandon(String abandon) {
+        this.abandon = abandon;
+    }
 
-	public String getUid() {
+    public String getUid() {
         return uid;
     }
 
@@ -112,5 +151,6 @@ public class User {
     public void setTimeMake(Long timeMake) {
         this.timeMake = timeMake;
     }
+
 
 }

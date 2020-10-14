@@ -13,7 +13,17 @@ public interface UserService {
 
     int deleteByKey(Map map);
 
-	int insertkey(Map map);
-	
-	Map checkkey(Map map);
+    int insertkey(Map map);
+
+    Map checkkey(Map map);
+
+    User login(String name, String pwd);
+
+    User selectUserById(Long id);
+
+    void deleteUserById(int id);
+
+    void registerUser(User user);
+
+    void updateUser(User user);
 }
