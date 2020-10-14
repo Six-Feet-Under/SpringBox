@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.llf.springboot.dao.FidFileMapper">
+    <resultMap id="BaseResultMap" type="com.llf.springboot.model.FidFile">
+        <id column="fid" property="fid" jdbcType="VARCHAR"/>
+        <result column="tag" property="tag" jdbcType="VARCHAR"/>
+        <result column="makeTime" property="makeTime" jdbcType="BIGINT"/>
+        <result column="borrowNumber" property="borrowNumber" jdbcType="BIGINT"/>
+        <result column="action" property="action" jdbcType="VARCHAR"/>
+        <result column="actionTime" property="actionTime" jdbcType="BIGINT"/>
+        <result column="fileName" property="fileName" jdbcType="VARCHAR"/>
+        <result column="fileDes" property="fileDes" jdbcType="VARCHAR"/>
+        <result column="creatId" property="creatId" jdbcType="VARCHAR"/>
+        <result column="fileState" property="fileState" jdbcType="VARCHAR"/>
+        <result column="fileWhere" property="fileWhere" jdbcType="BIGINT"/>
+        <result column="fileAbandon" property="fileAbandon" jdbcType="VARCHAR"/>
+        <result column="filePermission" property="filePermission" jdbcType="BIGINT"/>
+        <result column="fileAttribution" property="fileAttribution" jdbcType="VARCHAR"/>
+        <result column="dataStr" property="dataStr" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    	fid, tag, makeTime, borrowNumber ,action, actionTime, fileName, fileDes ,creatId, fileState, fileWhere, fileAbandon, dataStr ,filePermission ,fileAttribution
+  	</sql>
+    <update id="updateByKey" parameterType="java.util.HashMap">
+        update fidfile set actionTime = #{actionTime}
+        <if test="tag != null">
+            ,tag = #{tag}
+        </if>
+        <if test="makeTime != null">
+            , makeTime = #{makeTime}
+        </if>
+        <if test="borrowNumber != null">
+            ,borrowNumber = #{borrowNumber}
+        </if>
+        <if test="action != null">
+            , action = #{action}
+        </if>
+        <if test="fileName != null">
+            , fileName = #{fileName}
+        </if>
+        <if test="fileDes != null">
+            , fileDes = #{fileDes}
+        </if>
+        <if test="creatId != null">
+            , creatId = #{creatId}
+        </if>
+        <if test="fileState != null">
+            , fileState = #{fileState}
+        </if>
+        <if test="fileWhere != null">
+            , fileWhere = #{fileWhere}
+        </if>
+        <if test="fileAbandon != null">
+            , fileAbandon = #{fileAbandon}
+        </if>
+        <if test="dataStr != null">
+            , dataStr = #{dataStr}
+        </if>
+        <if test="filePermission != null">
+            , filePermission = #{filePermission}
+        </if>
+        <if test="fileAttribution != null">
+            , fileAttribution = #{fileAttribution}
+        </if>
+        where fid = #{fid}
+    </update>
+
+    <select id="selectList" resultType="com.llf.springboot.model.FidFile" parameterType="com.llf.springboot.model.FidFile">
+        select
+        <include refid="Base_Column_List"/>
+        from fidfile
+        <where>
+          <if test="fid != null">
+				AND fid = #{fid,jdbcType=BIGINT}
+			</if>
+            <if test="creatId != null">
+                AND creatId = #{creatId}
+            </if>
+            <if test="action != null">
+                AND action = #{action}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertkey" parameterType="com.llf.springboot.model.FidFile">
+        insert into fidfile (fid, tag, makeTime, borrowNumber ,action, actionTime, fileName, fileDes ,creatId, fileState, fileWhere, fileAbandon, dataStr ,filePermission ,fileAttribution)
+        values (#{fid}, #{tag}, #{makeTime}, #{borrowNumber} ,#{action}, #{actionTime}, #{fileName}, #{fileDes} ,#{creatId}, #{fileState}, #{fileWhere}, #{fileAbandon}, #{dataStr} ,#{filePermission} ,#{fileAttribution})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        DELETE FROM fidfile WHERE fid = #{fid}
+    </delete>
+
+    <select id="selectById" parameterType="java.lang.String" resultType="com.llf.springboot.model.FidFile">
+        select * from fidfile where fid = #{fid}
+    </select>
+
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.llf.springboot.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.llf.springboot.model.User">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="uid" property="uid" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="pwd" property="pwd" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="BIGINT"/>
+        <result column="timeOut" property="timeOut" jdbcType="BIGINT"/>
+        <result column="timeMake" property="timeMake" jdbcType="BIGINT"/>
+        <result column="pwdhint" property="pwdhint" jdbcType="VARCHAR"/>
+        <result column="grade" property="grade" jdbcType="VARCHAR"/>
+        <result column="abandon" property="abandon" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    	id, uid, name, pwd, phone,time, timeOut, timeMake, pwdhint,grade,abandon
+  	</sql>
+
+    <select id="selectList" resultMap="BaseResultMap" parameterType="com.llf.springboot.model.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            <if test="id != null">
+                id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="uid != null">
+                AND uid = #{uid,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                AND name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="phone != null">
+                AND phone = #{phone,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="checkkey"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select time from user where id = #{_id}
+    </select>
+    
+    <delete id="deleteByKey"  parameterType="java.util.HashMap">
+    update user
+     <set>
+         abandon = 'false'
+     </set>
+     where id = #{_id}
+  </delete>
+
+    <insert id="insertkey" parameterType="java.util.HashMap">
+    insert into user (id, uid, name, pwd, phone,time, timeOut, timeMake, pwdhint,grade,abandon)
+    values (#{_id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{PwdHint}, #{Grade}, #{Abandon})
+  </insert>
+
+    <update id="updateByKey" parameterType="java.util.HashMap">
+        update user set time = #{time}
+			<if test="uid != null">
+				,uid = #{uid}
+			</if>
+			<if test="name != null">
+				, name = #{name}
+			</if>
+            <if test="pwd != null">
+                ,pwd = #{pwd}
+            </if>
+			<if test="phone != null">
+				, phone = #{phone}
+			</if>
+            <if test="timeOut != null">
+                , timeOut = #{timeOut}
+            </if>
+            <if test="timeMake != null">
+                , timeMake = #{timeMake}
+            </if>
+			<if test="PwdHint != null">
+				, pwdhint = #{PwdHint}
+			</if>
+			<if test="Grade != null">
+				, grade = #{Grade}
+			</if>
+			<if test="Abandon != null">
+				, abandon = #{Abandon}
+			</if>
+        where id = #{_id}
+    </update>
+
+    <select id="login" resultType="com.llf.springboot.model.User" parameterType="com.llf.springboot.model.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            name = #{name , jdbcType=VARCHAR}
+        </where>
+    </select>
+
+    <select id="detailsAccountAndPhone" resultType="com.llf.springboot.model.User" parameterType="com.llf.springboot.model.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            <if test="phone != null">
+                phone = #{phone , jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="detailsUser" resultMap="BaseResultMap" parameterType="com.llf.springboot.model.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.llf.springboot.dao.LogMapper">
+    <resultMap id="BaseResultMap" type="com.llf.springboot.model.Log">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="types" property="types" jdbcType="VARCHAR"/>
+        <result column="actionId" property="actionId" jdbcType="BIGINT"/>
+        <result column="actionResult" property="actionResult" jdbcType="VARCHAR"/>
+        <result column="uid" property="uid" jdbcType="BIGINT"/>
+        <result column="target" property="target" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="BIGINT"/>
+        <result column="dataStr" property="dataStr" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    	id, types, actionId, actionResult ,uid, target, time, dataStr
+  	</sql>
+
+    <select id="selectList" resultMap="BaseResultMap" parameterType="com.llf.springboot.model.Log">
+        select
+        <include refid="Base_Column_List"/>
+        from log
+        <where>
+            <if test="id != null">
+                id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="fid != null">
+                AND types = #{types,jdbcType=VARCHAR}
+            </if>
+            <if test="actionId != null">
+                AND actionId = #{actionId,jdbcType=BIGINT}
+            </if>
+            <if test="actionResult != null">
+                AND actionResult = #{actionResult,jdbcType=BIGINT}
+            </if>
+            <if test="uid != null">
+                AND uid = #{uid,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
+
+<!--    <update id="deleteByKey" parameterType="com.llf.springboot.model.Log">
+
+    update log where id = #{id,jdbcType=BIGINT}
+
+  </update>-->
+
+    <delete id="deleteByKey" parameterType="java.lang.Long">
+        delete log where id = ${id}
+    </delete>
+
+    <insert id="insertkey" parameterType="java.util.HashMap">
+    insert into log (types, actionId, uid, time, dataStr)
+    values (#{type},#{actionId}, #{uid}, #{time},#{dataStr})
+  </insert>
+
+    <update id="updateByKey" parameterType="com.llf.springboot.model.Log">
+        update log
+        <set>
+            <if test="types != null">
+                AND types = #{types,jdbcType=VARCHAR}
+            </if>
+            <if test="actionId != null">
+                AND actionId = #{actionId,jdbcType=BIGINT}
+            </if>
+            <if test="actionResult != null">
+                AND actionResult = #{actionResult,jdbcType=VARCHAR}
+            </if>
+            <if test="uid != null">
+                AND uid = #{uid,jdbcType=BIGINT}
+            </if>
+            <if test="target != null">
+                AND target = #{target,jdbcType=VARCHAR}
+            </if>
+            <if test="time != null">
+                AND time = #{time,jdbcType=BIGINT}
+            </if>
+            <if test="dataStr != null">
+                AND dataStr = #{dataStr,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="detailsLog" resultMap="BaseResultMap" parameterType="com.llf.springboot.model.Log">
+        select
+        <include refid="Base_Column_List"/>
+        from log
+        <where>
+            <if test="id != null">
+                id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="uid != null">
+                AND uid = #{uid,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
+</mapper>
