@@ -47,6 +47,14 @@ public class ResponseJSONResult {
     public static ResponseJSONResult errorMsg(String msg) {
         return new ResponseJSONResult(500, msg, null);
     }
+
+    public static ResponseJSONResult errorSqlMsg(String msg){
+        return new ResponseJSONResult(201, msg, null);
+    }
+
+    public static ResponseJSONResult errorNullSql(String msg){
+        return new ResponseJSONResult(202, msg, null);
+    }
     
     public static ResponseJSONResult errorMap(Object data) {
         return new ResponseJSONResult(501, "error", data);
