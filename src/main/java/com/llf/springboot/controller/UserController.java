@@ -98,8 +98,12 @@ public class UserController {
             for (int i = 0; i < lisMap.size(); i++) {
                 Map map = JSON.parseObject(lisMap.get(i).toString());
                 sum++;
-                if (userService.insertkey(map) == 1) sumin++;
-                if (userService.insertkey(map) == 2) sumup++;
+                if (userService.insertkey(map) == 1) {
+                    sumin++;
+                }
+                if (userService.insertkey(map) == 2) {
+                    sumup++;
+                }
             }
             String sumlog = "总数：" + sum + "新增：" + sumin + "更新：" + sumup;
             return ResponseJSONResult.ok(sumlog);

@@ -57,7 +57,6 @@ public class LogController {
                     dataType = "Long", paramType = "list")
     })
     public ResponseJSONResult deleteByKey(Long id) {
-        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
 
         if (logService.deleteByKey(id) != 1) {
             return ResponseJSONResult.ok(0);
@@ -74,7 +73,6 @@ public class LogController {
                     dataType = "Long", paramType = "list")
     })
     public ResponseJSONResult deleteByid(Long id) {
-        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
 
         if (logService.deleteByid(id) != 1) {
             return ResponseJSONResult.ok(0);
@@ -147,7 +145,7 @@ public class LogController {
                     dataType = "Log", paramType = "list")
     })
     public ResponseJSONResult updateByKey(Log log) {
-        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
+
 
         if (logService.updateByKey(log) != 1) {
             return ResponseJSONResult.ok(0);
@@ -163,10 +161,10 @@ public class LogController {
             @ApiImplicitParam(name = "log", value = "用户列表", required = true,
                     dataType = "Log", paramType = "list")
     })
-    public Log detailsLog(Log log) {
-        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
+    public ResponseJSONResult detailsLog(Log log) {
 
-        return logService.detailsLog(log);
+
+        return ResponseJSONResult.ok(logService.detailsLog(log));
 
     }
 }

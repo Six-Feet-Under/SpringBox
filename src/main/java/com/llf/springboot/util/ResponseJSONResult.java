@@ -35,7 +35,15 @@ public class ResponseJSONResult {
     public static ResponseJSONResult ok() {
         return new ResponseJSONResult(null);
     }
-    
+
+    public static ResponseJSONResult errorSql(String msg) {
+        return new ResponseJSONResult(200, msg, null);
+    }
+
+    public static ResponseJSONResult errorNUllSql(String msg) {
+        return new ResponseJSONResult(201, msg, null);
+    }
+
     public static ResponseJSONResult errorMsg(String msg) {
         return new ResponseJSONResult(500, msg, null);
     }

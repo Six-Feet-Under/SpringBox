@@ -33,8 +33,20 @@
     </delete>
 
     <insert id="insertkey" parameterType="java.util.HashMap">
-        insert into log (types, actionId, uid, time, dataStr)
-        values (#{type},#{actionId}, #{uid}, #{time},#{dataStr})
+        /*insert into log (types, actionId, uid, time, dataStr)
+        values (#{type},#{actionId}, #{uid}, #{time},#{dataStr})*/
+        INSERT INTO `qbox`.`log` (
+      `types`,
+      `actionId`,
+      `uid`,
+      `time`,
+      `dataStr`
+    )
+    VALUES
+      (
+
+        #{type},#{actionId}, #{uid}, #{time},#{dataStr}
+      )
   </insert>
 
     <update id="updateByKey" parameterType="com.llf.springboot.model.Log">
