@@ -68,6 +68,7 @@ public class ResponseJSONResult {
         this.data = data;
     }
 
+
     public Boolean isOK() {
         return this.status == 200;
     }

@@ -114,6 +114,7 @@ public class UserController {
         password:密码
 
      */
+
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public String login(@Param("name") String name, @Param("pwd") String pwd) {
         //name = request.getParameter("name");
@@ -150,7 +151,7 @@ public class UserController {
         //return  “sucess”
         return "1";
     }
-
+    @ApiOperation(value = "查询" )
     @RequestMapping(value = "/select",method= RequestMethod.POST)
     public String selectUser(Long id){
         User user = userService.selectUserById(id);
