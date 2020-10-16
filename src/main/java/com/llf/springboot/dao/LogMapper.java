@@ -22,4 +22,5 @@ public interface LogMapper {
     List<Log> selectLogById(Long id);
 
     int deleteByid(Long id);
+
 }

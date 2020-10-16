@@ -1,5 +1,6 @@
 package com.llf.springboot.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.alibaba.fastjson.JSON;
 import com.llf.springboot.model.FidFile;
 import com.llf.springboot.model.Log;
@@ -34,10 +35,10 @@ public class LogController {
                     dataType = "string", paramType = "List")
     })
     public ResponseJSONResult insertkey(String strs) {
-        //strs="{type=\"1\" actionId=\"超级管理员\" uid=\"超级管理员\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
+        //strs="{types=\"3\" actionId=\"超级管理员\" uid=\"1\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
         try {
-            strs=strs.replace("=", ":");
-            strs=strs.replace(" ", ",");
+            strs = strs.replace("=", ":");
+            strs = strs.replace(" ", ",");
             Map map=JSON.parseObject(strs);
             if(logService.insertkey(map) == 1) {
                 return ResponseJSONResult.ok(1);
@@ -50,6 +51,7 @@ public class LogController {
         }
     }
 
+
     @ApiOperation(value="删除日志信息接口", notes="删除日志信息")
     @RequestMapping(value = "/log/deleteByKey", method = RequestMethod.POST)
     @ApiImplicitParams({
@@ -57,11 +59,14 @@ public class LogController {
                     dataType = "Long", paramType = "list")
     })
     public ResponseJSONResult deleteByKey(Long id) {
-
-        if (logService.deleteByKey(id) != 1) {
-            return ResponseJSONResult.ok(0);
-        } else {
-            return ResponseJSONResult.ok(1);
+        try {
+            if (logService.deleteByKey(id) != 1) {
+                return ResponseJSONResult.ok(0);
+            } else {
+                return ResponseJSONResult.ok(1);
+            }
+        } catch (Exception e) {
+            return ResponseJSONResult.errorSql("语句错误");
         }
 
     }
@@ -146,7 +151,6 @@ public class LogController {
     })
     public ResponseJSONResult updateByKey(Log log) {
 
-
         if (logService.updateByKey(log) != 1) {
             return ResponseJSONResult.ok(0);
         } else {
@@ -162,7 +166,6 @@ public class LogController {
                     dataType = "Log", paramType = "list")
     })
     public ResponseJSONResult detailsLog(Log log) {
-
 
         return ResponseJSONResult.ok(logService.detailsLog(log));
 

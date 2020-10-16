@@ -50,4 +50,5 @@ public class LogServiceImpl implements LogService{
     public int deleteByid(Long id) {
         return logMapper.deleteByid(id);
     }
+
 }
