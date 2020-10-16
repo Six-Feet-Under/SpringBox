@@ -33,8 +33,36 @@
     </delete>
 
     <insert id="insertkey" parameterType="java.util.HashMap">
-        insert into log (types, actionId, uid, time, dataStr)
-        values (#{type},#{actionId}, #{uid}, #{time},#{dataStr})
+          /*insert into log (types, actionId, uid, time, dataStr)
+        values
+            (
+              #{types,jdbcType=VARCHAR},
+              #{actionId,jdbcType=VARCHAR},
+              #{uid,jdbcType=BIGINT},
+              #{time,jdbcType=BIGINT},
+              #{dataStr,jdbcType=VARCHAR}
+            )*/
+      INSERT INTO `qbox`.`log` (
+      `id`,
+      `types`,
+      `actionId`,
+      `actionResult`,
+      `uid`,
+      `target`,
+      `time`,
+      `dataStr`
+    )
+    VALUES
+      (
+        #(id,,jdbcType=BIGINT),
+        #{types,jdbcType=VARCHAR},
+        #{actionId,jdbcType=VARCHAR},
+        #{actionResult,jdbcType=VARCHAR}
+        #{uid,jdbcType=BIGINT},
+        #{target,jdbcType=VARCHAR},
+        #{time,jdbcType=BIGINT},
+        #{dataStr,jdbcType=VARCHAR}
+      )
   </insert>
 
     <update id="updateByKey" parameterType="com.llf.springboot.model.Log">
@@ -65,7 +93,7 @@
         where id = #{id,jdbcType=BIGINT}-->
 
         UPDATE
-        `henengtest`.`log`
+        `qbox`.`log`
         SET
         `types` = #{types,jdbcType=VARCHAR},
         `actionId` = #{actionId,jdbcType=BIGINT},

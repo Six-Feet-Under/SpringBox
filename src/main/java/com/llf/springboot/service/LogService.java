@@ -22,4 +22,5 @@ public interface LogService {
     Log detailsLog(Log log);
 
     int deleteByid(Long id);
+
 }

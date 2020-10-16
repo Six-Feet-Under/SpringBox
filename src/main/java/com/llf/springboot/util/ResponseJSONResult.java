@@ -35,7 +35,7 @@ public class ResponseJSONResult {
     public static ResponseJSONResult ok() {
         return new ResponseJSONResult(null);
     }
-    
+
     public static ResponseJSONResult errorMsg(String msg) {
         return new ResponseJSONResult(500, msg, null);
     }
