@@ -49,9 +49,6 @@ public class FidFileController {
 //                    dataType = "string", paramType = "List")
 //    })
     public ResponseJSONResult insertkey(FidFile fidFile) {
-        fidFile.setFid("6");
-        fidFile.setCreatId("666545");
-        fidFile.setDataStr("35351351351353535");
         try {
             return ResponseJSONResult.ok(fidFileService.insertkey(fidFile));
         } catch (Exception e) {
