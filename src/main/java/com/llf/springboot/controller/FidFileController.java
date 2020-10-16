@@ -3,14 +3,12 @@ package com.llf.springboot.controller;
 import com.alibaba.fastjson.JSON;
 import com.llf.springboot.model.FidFile;
 import com.llf.springboot.service.FidFileService;
-
 import com.llf.springboot.util.ResponseJSONResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,14 +34,10 @@ public class FidFileController {
         return ResponseJSONResult.ok(list);
     }
 
-    @ApiOperation(value = "获取所有文件信息",notes = "文件list")
-    @RequestMapping(value = "/fidFile/selectList",method = RequestMethod.POST)
-    public ResponseJSONResult selectList(){
-        try{
-            return ResponseJSONResult.ok(fidFileService.selectAll());
-        }catch (Exception e){
-            return ResponseJSONResult.errorSqlMsg("查询失败");
-        }
+    @ApiOperation(value = "获取所有文件信息", notes = "文件list")
+    @RequestMapping(value = "/fidFile/selectList", method = RequestMethod.POST)
+    public ResponseJSONResult selectList() {
+        return ResponseJSONResult.ok(fidFileService.selectAll());
     }
 
     @ApiOperation(value = "新增文件信息接口", notes = "文件信息Map")
@@ -83,26 +77,17 @@ public class FidFileController {
         }
     }
 
-    @ApiOperation(value = "根据fid删除文件信息",notes = "成功与否")
-    @RequestMapping(value = "/fidFile/deleteById",method = RequestMethod.POST)
+    @ApiOperation(value = "根据fid删除文件信息", notes = "成功与否")
+    @RequestMapping(value = "/fidFile/deleteById", method = RequestMethod.POST)
     public ResponseJSONResult deleteById(String fid) {
-        try {
-            fidFileService.deleteById(fid);
-            return ResponseJSONResult.ok("删除成功");
-        }catch (Exception e){
-           return ResponseJSONResult.errorMsg("删除失败");
-        }
-
+        fidFileService.deleteById(fid);
+        return ResponseJSONResult.ok("删除成功");
     }
 
-    @ApiOperation(value = "根据fid查询文件信息",notes = "文件信息Map")
-    @RequestMapping(value = "/fidFile/selectById",method = RequestMethod.POST)
+    @ApiOperation(value = "根据fid查询文件信息", notes = "文件信息Map")
+    @RequestMapping(value = "/fidFile/selectById", method = RequestMethod.POST)
     public ResponseJSONResult selectById(String fid) {
-        try{
-            return ResponseJSONResult.ok(fidFileService.selectById(fid));
-        }catch (Exception e){
-            return ResponseJSONResult.errorSqlMsg("查询失败");
-        }
+        return ResponseJSONResult.ok(fidFileService.selectById(fid));
     }
 
 }
