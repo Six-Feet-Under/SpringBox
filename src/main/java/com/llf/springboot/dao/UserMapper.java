@@ -24,7 +24,7 @@ public interface UserMapper {
 
     void deleteUserById(int id);
 
-    User selectUserById(Long id);
+    User selectById(Long id);
 
     void registerUser(User user);
 
