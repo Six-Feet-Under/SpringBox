@@ -26,4 +26,6 @@ public interface UserService {
     void registerUser(User user);
 
     void updateUser(User user);
+
+    int updateByKey(Map map);
 }

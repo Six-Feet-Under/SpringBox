@@ -86,7 +86,7 @@
         <if test="Abandon != null">
             , abandon = #{Abandon}
         </if>
-        where id = #{_id}
+        where id = #{id}
     </update>
 
     <!--    <select id="login" resultType="com.llf.springboot.model.User" parameterType="com.llf.springboot.model.User">-->
@@ -120,7 +120,7 @@
         </where>
     </select>
 
-    <select id="login"  resultType="com.llf.springboot.model.User" parameterType="java.lang.Long">
+    <select id="login"  resultType="com.llf.springboot.model.User" parameterType="java.lang.String">
         select *
         from user
         where name =#{name} and pwd =#{pwd}
@@ -146,4 +146,5 @@
         update user set uid =#{uid},name =#{name},pwd= #{pwd},phone =#{phone},grade= #{grade},abandon =#{abandon}
         where id =#{id}
     </update>
+
 </mapper>

@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService{
 		return userMapper.selectUserById(id);
 	}
 
+	@Override
 	public void deleteUserById(int id){
 		userMapper.deleteUserById(id);
 	}
@@ -71,5 +72,15 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateUser(User user) {
 		userMapper.updateUser(user);
+	}
+
+	@Override
+	public int updateByKey(Map map) {
+		try {
+			userMapper.updateByKey(map);
+			return 1;
+		} catch (Exception e){
+			return 0;
+		}
 	}
 }
