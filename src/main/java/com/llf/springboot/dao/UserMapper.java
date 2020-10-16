@@ -20,7 +20,7 @@ public interface UserMapper {
 
     int updateByKey(Map map);
 
-    User login(@Param("name") String name, @Param("pwd") String pwd);
+    User login(@Param("name") String name,@Param("pwd") String pwd);
 
     void deleteUserById(int id);
 

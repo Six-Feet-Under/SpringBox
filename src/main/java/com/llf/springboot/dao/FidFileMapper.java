@@ -17,5 +17,7 @@ public interface FidFileMapper {
     void deleteById(String fid);
 
     FidFile selectById(String fid);
+
+    List<FidFile> selectAll();
 }
 
