@@ -32,7 +32,7 @@ public class LogController {
     @RequestMapping(value = "/log/insertkey", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "strs", value = "用户列表", required = true,
-                    dataType = "string", paramType = "List")
+                    dataType = "string", paramType = "Map")
     })
     public ResponseJSONResult insertkey(String strs) {
         //strs="{types=\"3\" actionId=\"超级管理员\" uid=\"1\" time=\"1594785056188\" dataStr=\"[超级管理员] 修改账号 [超级管理员]\"}";
