@@ -55,9 +55,10 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User selectUserById(Long id) {
-		return userMapper.selectUserById(id);
+	public User selectById(Long id) {
+		return userMapper.selectById(id);
 	}
+
 
 	@Override
 	public void deleteUserById(int id){

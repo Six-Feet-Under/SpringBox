@@ -19,7 +19,7 @@ public interface UserService {
 
     User login(String name, String pwd);
 
-    User selectUserById(Long id);
+    User selectById(Long id);
 
     void deleteUserById(int id);
 
@@ -28,4 +28,5 @@ public interface UserService {
     void updateUser(User user);
 
     int updateByKey(Map map);
+
 }
