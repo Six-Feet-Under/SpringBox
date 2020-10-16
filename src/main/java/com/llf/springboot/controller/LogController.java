@@ -66,7 +66,7 @@ public class LogController {
                 return ResponseJSONResult.ok(1);
             }
         } catch (Exception e) {
-            return ResponseJSONResult.errorSql("语句错误");
+            return ResponseJSONResult.errorSqlMsg("语句错误");
         }
 
     }

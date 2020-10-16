@@ -39,7 +39,11 @@ public class FidFileController {
     @ApiOperation(value = "获取所有文件信息",notes = "文件list")
     @RequestMapping(value = "/fidFile/selectList",method = RequestMethod.POST)
     public ResponseJSONResult selectList(){
-        return ResponseJSONResult.ok(fidFileService.selectAll());
+        try{
+            return ResponseJSONResult.ok(fidFileService.selectAll());
+        }catch (Exception e){
+            return ResponseJSONResult.errorSqlMsg("查询失败");
+        }
     }
 
     @ApiOperation(value = "新增文件信息接口", notes = "文件信息Map")
@@ -94,7 +98,11 @@ public class FidFileController {
     @ApiOperation(value = "根据fid查询文件信息",notes = "文件信息Map")
     @RequestMapping(value = "/fidFile/selectById",method = RequestMethod.POST)
     public ResponseJSONResult selectById(String fid) {
-        return ResponseJSONResult.ok(fidFileService.selectById(fid));
+        try{
+            return ResponseJSONResult.ok(fidFileService.selectById(fid));
+        }catch (Exception e){
+            return ResponseJSONResult.errorSqlMsg("查询失败");
+        }
     }
 
 }
