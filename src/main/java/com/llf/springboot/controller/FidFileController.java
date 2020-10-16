@@ -36,6 +36,12 @@ public class FidFileController {
         return ResponseJSONResult.ok(list);
     }
 
+    @ApiOperation(value = "获取所有文件信息",notes = "文件list")
+    @RequestMapping(value = "/fidFile/selectList",method = RequestMethod.POST)
+    public ResponseJSONResult selectList(){
+        return ResponseJSONResult.ok(fidFileService.selectAll());
+    }
+
     @ApiOperation(value = "新增文件信息接口", notes = "文件信息Map")
     @RequestMapping(value = "/fidFile/insertkey", method = RequestMethod.POST)
 //    @ApiImplicitParams({
@@ -43,6 +49,9 @@ public class FidFileController {
 //                    dataType = "string", paramType = "List")
 //    })
     public ResponseJSONResult insertkey(FidFile fidFile) {
+        fidFile.setFid("6");
+        fidFile.setCreatId("666545");
+        fidFile.setDataStr("35351351351353535");
         try {
             return ResponseJSONResult.ok(fidFileService.insertkey(fidFile));
         } catch (Exception e) {
@@ -57,10 +66,11 @@ public class FidFileController {
                     dataType = "string", paramType = "List")
     })
     public ResponseJSONResult updatekey(String strs) {
-        //strs="{fid=\"0123456789ABCDEF\" fileWhere=\"1\" actionTime=\"1595411202022\" action=\"000000\" fileState=\"在册\" fileAbandon=\"true\" borrowNumber=\"9\" }";
+        //strs="{fid=\"1\" fileWhere=\"1\" actionTime=\"1595411202022\" action=\"000000\" fileState=\"在册\" fileAbandon=\"true\" borrowNumber=\"9\" }";
         try {
             strs = strs.replace("=", ":");
             strs = strs.replace(" ", ",");
+            System.out.println(strs);
             Map map = JSON.parseObject(strs);
             if (fidFileService.updateByKey(map) == 1) {
                 return ResponseJSONResult.ok(1);
@@ -79,7 +89,7 @@ public class FidFileController {
             fidFileService.deleteById(fid);
             return ResponseJSONResult.ok("删除成功");
         }catch (Exception e){
-           return ResponseJSONResult.errorMsg("信息错误");
+           return ResponseJSONResult.errorMsg("删除失败");
         }
 
     }

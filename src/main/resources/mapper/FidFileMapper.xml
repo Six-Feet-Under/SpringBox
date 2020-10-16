@@ -83,6 +83,10 @@
         </where>
     </select>
 
+    <select id="selectAll" resultType="com.llf.springboot.model.FidFile">
+        select * from fidfile
+    </select>
+
     <insert id="insertkey" parameterType="com.llf.springboot.model.FidFile">
         insert into fidfile (fid, tag, makeTime, borrowNumber ,action, actionTime, fileName, fileDes ,creatId, fileState, fileWhere, fileAbandon, dataStr ,filePermission ,fileAttribution)
         values (#{fid}, #{tag}, #{makeTime}, #{borrowNumber} ,#{action}, #{actionTime}, #{fileName}, #{fileDes} ,#{creatId}, #{fileState}, #{fileWhere}, #{fileAbandon}, #{dataStr} ,#{filePermission} ,#{fileAttribution})

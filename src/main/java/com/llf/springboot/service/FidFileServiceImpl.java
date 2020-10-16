@@ -48,4 +48,9 @@ public class FidFileServiceImpl implements FidFileService{
     public FidFile selectById(String fid) {
         return fidFileMapper.selectById(fid);
     }
+
+    @Override
+    public List<FidFile> selectAll() {
+        return fidFileMapper.selectAll();
+    }
 }
