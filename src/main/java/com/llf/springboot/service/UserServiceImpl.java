@@ -94,4 +94,9 @@ public class UserServiceImpl implements UserService{
 	public int isTrue(Long id) {
 		return userMapper.isTrue(id);
 	}
+
+	@Override
+	public void batchDeletes(List delList) {
+		 userMapper.batchDeletes(delList);
+	}
 }

@@ -236,6 +236,18 @@ public class UserController {
         return ResponseJSONResult.errorSqlMsg("sql错误");}
     }
 
+    @RequestMapping(value = "/user/batchDelete",method= RequestMethod.POST)
+    public void batchDelete(HttpServletRequest request,HttpServletResponse response){
+
+            String items = request.getParameter("delitems");
+            List<String> delList = new ArrayList<String>();
+            String[] strs = items.split(",");
+            for (String str : strs) {
+                delList.add(str);
+            }
+            userService.batchDeletes(delList);
+    }
+
     @ApiOperation(value = "根据Id查询用户接口",notes = "根据Id查询用户信息")
     @RequestMapping(value = "/user/selectById",method= RequestMethod.POST)
     @ApiImplicitParams({
@@ -335,6 +347,8 @@ public class UserController {
             return ResponseJSONResult.ok("user错误");
         }
 }
+
+
 
     @RequestMapping(value = "/user/isTrue",method= RequestMethod.POST)
     public boolean isTrue(Long id){

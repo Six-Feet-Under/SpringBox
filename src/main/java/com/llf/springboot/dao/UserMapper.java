@@ -31,4 +31,6 @@ public interface UserMapper {
     int updateUser(User user);
 
     int isTrue(Long id);
+
+    void batchDeletes(List delList);
 }
