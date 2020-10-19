@@ -36,8 +36,14 @@ public class FidFileController {
 
     @ApiOperation(value = "获取所有文件信息", notes = "文件list")
     @RequestMapping(value = "/fidFile/selectList", method = RequestMethod.POST)
-    public ResponseJSONResult selectList() {
-        return ResponseJSONResult.ok(fidFileService.selectAll());
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "查询第几页",required = true,
+            dataType = "Integer",paramType = "list"),
+            @ApiImplicitParam(name = "countNum",value = "每页的数据条数",required = true,
+            dataType = "Integer",paramType = "list")
+    })
+    public ResponseJSONResult selectList(Integer pageNum,Integer countNum) {
+        return ResponseJSONResult.ok(fidFileService.selectAll((pageNum-1)*countNum,countNum));
     }
 
     @ApiOperation(value = "新增文件信息接口", notes = "文件信息Map")
@@ -120,6 +126,7 @@ public class FidFileController {
         }
     }
 
+    @ApiOperation(value = "更新文件信息接口", notes = "文件实体类")
     @RequestMapping(value = "/fidFile/updatefidFile", method = RequestMethod.POST)
     @ApiImplicitParam(name = "fidFile",value = " /** 自增主键*/\n" +
             "    private String fid;\n" +
@@ -154,8 +161,6 @@ public class FidFileController {
             "\tpublic String fileAttribution = \"\";",required = true,
             dataType = "FidFile",paramType = "int")
     public ResponseJSONResult updatefidFile(FidFile fidFile){
-        fidFile.setFid("E2005163410C01160500E4E3");
-        fidFile.setFileName("测试测试");
         try {
             return ResponseJSONResult.ok(fidFileService.updatefidFile(fidFile));
         }catch (Exception e){
