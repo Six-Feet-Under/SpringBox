@@ -38,22 +38,24 @@ public class UserController {
 //    })
     public ResponseJSONResult selectAll(User user) {
         List<User> list = userService.selectList(user);
-//        PagedResult result = new PagedResult();
-//        if (page == null) {
-//            page = 1;
-//        }
-//        if (pageSize == null) {
-//            pageSize = 10;
-//        }
-//        int count = list.size();
-//        if (count > 0) {
-//            result.setTotal(count % pageSize == 0 ? count / pageSize : count / pageSize + 1);
-//            result.setPage(page);
-//            result.setRecords(count);
-//            result.setRows(list.subList(page == 1 ? 0 : (page - 1) * pageSize,
-//                    count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
-//                            (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
-//        }
+        int count = list.size();
+        int pageSize =  10;
+        int page = count / pageSize;
+        PagedResult result = new PagedResult();
+        if (page == 0) {
+            page = 1;
+        }
+        if (pageSize == 0) {
+            pageSize = 10;
+        }
+        if (count > 0) {
+            result.setTotal(count % pageSize == 0 ? count / pageSize : count / pageSize + 1);
+            result.setPage(page);
+            result.setRecords(count);
+            result.setRows(list.subList(page == 1 ? 0 : (page - 1) * pageSize,
+                    count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
+                            (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
+        }
         return ResponseJSONResult.ok(list);
     }
 
@@ -113,42 +115,29 @@ public class UserController {
     @ApiOperation(value = "注册用户信息接口", notes = "注册用户信息")
     @RequestMapping(value = "/user/registerKey", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "strs", value = "用户列表", required = true,
-                    dataType = "string", paramType = "List")
+            @ApiImplicitParam(name = "user", value = "用户实体类", required = true,
+                    dataType = "User", paramType = "User")
     })
-    public ResponseJSONResult registerkey(String strs) {
-        int sum = 0;
-        int sumin = 0;
-        int sumup = 0;
+    public ResponseJSONResult registerkey(User user) {
         //strs="[{_id=\"8\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"1\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"3\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
         try {
-            strs = strs.replace("=", ":");
-            strs = strs.replace(", ", ",");
-            strs = strs.replace(" ", ",");
-            strs = strs.replace("null", "-1");
-            List lisMap = JSON.parseArray(strs);
-            for (int i = 0; i < lisMap.size(); i++) {
-                Map map = JSON.parseObject(lisMap.get(i).toString());
-                sum++;
-                if (userService.insertkey(map) == 1) {sumin++;}
-                if (userService.insertkey(map) == 2) {sumup++;}
-            }
-            String sumlog = "总数：" + sum + "新增：" + sumin + "更新：" + sumup;
-            return ResponseJSONResult.ok(sumlog);
+             userService.registerUser(user);
+             return ResponseJSONResult.ok();
         } catch (Exception e) {
             return ResponseJSONResult.ok("格式错误");
         }
     }
 
-
+    @ApiOperation(value = "登录",notes = "用户登录")
     @RequestMapping(value="/login",method=RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "用户名", required = true, dataType = "string", paramType = "String"),
+            @ApiImplicitParam(name = "pwd", value = "登录密码", required = true, dataType = "string", paramType = "String")
+            })
     public ResponseJSONResult login( String name, String pwd) {
-        //name = request.getParameter("name");
-        //pwd = request.getParameter("pwd");
         try{
-            System.out.println(name+pwd);
             User user = userService.login(name, pwd);
-            if (user.getGrade().equals("0") || user.getGrade().equals("1") ){
+            if (user.getGrade().equals("1") || user.getGrade().equals("3") ){
                 //return 用户；
                 return ResponseJSONResult.ok(user.getGrade());
             } else{
@@ -181,8 +170,13 @@ public class UserController {
 //		}
 //	}
 
+    @ApiOperation(value = "删除",notes = "根据用户Id删除用户")
     @RequestMapping(value = "/user/deleteById",method= RequestMethod.POST)
-    public ResponseJSONResult deleteUserById(int id){
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户id", required = true,
+                    dataType = "Long", paramType = "Long")
+    })
+    public ResponseJSONResult deleteUserById(Long id){
         try{
             userService.deleteUserById(id);
             if(id == 0){
@@ -196,6 +190,10 @@ public class UserController {
 
     @ApiOperation(value = "根据Id查询用户接口",notes = "根据Id查询用户信息")
     @RequestMapping(value = "/user/selectById",method= RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户id", required = true,
+                    dataType = "Long", paramType = "Long")
+    })
     public ResponseJSONResult selectById(Long id){
         try{
             User user = userService.selectById(id);
@@ -248,19 +246,19 @@ public class UserController {
 //        return "user";
 //    }
 
+    @ApiOperation(value = "修改用户",notes = "修改用户信息")
     @RequestMapping(value = "/user/updateKey",method= RequestMethod.POST)
-    public ResponseJSONResult updatekey(String strs){
-        //strs="[{_id=\"8\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"1\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"3\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", value = "用户实体类", required = true,
+                    dataType = "User", paramType = "User")
+    })
+    public ResponseJSONResult updateKey(User user){
         try {
-            strs = strs.replace("=", ":");
-            strs = strs.replace(", ", ",");
-            strs = strs.replace(" ", ",");
-            strs = strs.replace("null", "-1");
-            Map map = JSON.parseObject(strs);
-            if (userService.updateByKey(map) == 1) {
+            userService.updateUser(user);
+            if (userService.updateUser(user) == 1) {
                 return ResponseJSONResult.ok(1);
             } else {
-                return ResponseJSONResult.ok(0);
+                return ResponseJSONResult.ok(3);
             }
         } catch (Exception e) {
             return ResponseJSONResult.ok("格式错误");

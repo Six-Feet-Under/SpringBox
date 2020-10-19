@@ -21,11 +21,11 @@ public interface UserService {
 
     User selectById(Long id);
 
-    void deleteUserById(int id);
+    void deleteUserById(Long id);
 
     void registerUser(User user);
 
-    void updateUser(User user);
+    int updateUser(User user);
 
     int updateByKey(Map map);
 
