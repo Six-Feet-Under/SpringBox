@@ -146,9 +146,8 @@ public class UserController {
         //name = request.getParameter("name");
         //pwd = request.getParameter("pwd");
         try{
-            System.out.println(name+pwd);
             User user = userService.login(name, pwd);
-            if (user.getGrade().equals("0") || user.getGrade().equals("1") ){
+            if (user.getGrade().equals("1") || user.getGrade().equals("3") ){
                 //return 用户；
                 return ResponseJSONResult.ok(user.getGrade());
             } else{
