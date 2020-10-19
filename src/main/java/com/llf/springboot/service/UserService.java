@@ -29,4 +29,7 @@ public interface UserService {
 
     int updateByKey(Map map);
 
+    int isTrue(Long id );
+
+    void batchDeletes(List delList);
 }

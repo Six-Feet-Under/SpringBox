@@ -128,8 +128,8 @@
     </select>
 
 
-    <select id="selectAll" resultType="com.llf.springboot.model.FidFile">
-        select * from fidfile
+    <select id="selectAll" resultType="com.llf.springboot.model.FidFile" parameterType="java.lang.Integer">
+        select * from fidfile limit #{len},#{countNum}
     </select>
 
     <insert id="insertkey" parameterType="com.llf.springboot.model.FidFile">
