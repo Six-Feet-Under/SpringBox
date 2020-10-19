@@ -22,11 +22,11 @@ public interface UserMapper {
 
     User login(@Param("name") String name,@Param("pwd") String pwd);
 
-    void deleteUserById(int id);
+    void deleteUserById(Long id);
 
     User selectById(Long id);
 
     void registerUser(User user);
 
-    void updateUser(User user);
+    int updateUser(User user);
 }

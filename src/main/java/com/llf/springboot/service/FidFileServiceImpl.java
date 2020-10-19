@@ -53,4 +53,24 @@ public class FidFileServiceImpl implements FidFileService{
     public List<FidFile> selectAll() {
         return fidFileMapper.selectAll();
     }
+
+    @Override
+    public int insertfidFile(FidFile fidFile) {
+        try{
+            fidFileMapper.insertfidFile(fidFile);
+            return 1;
+        }catch (Exception e){
+            return 0;
+        }
+    }
+
+    @Override
+    public int updatefidFile(FidFile fidFile) {
+        try {
+            fidFileMapper.updatefidFile(fidFile);
+            return 1;
+        }catch (Exception e){
+            return 0;
+        }
+    }
 }

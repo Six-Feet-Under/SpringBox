@@ -77,7 +77,7 @@
         <if test="timeMake != null">
             , timeMake = #{timeMake}
         </if>
-        <if test="PwdHint != null">
+        <if test="pwdhint != null">
             , pwdhint = #{PwdHint}
         </if>
         <if test="Grade != null">
@@ -126,7 +126,7 @@
         where name =#{name} and pwd =#{pwd}
     </select>
 
-    <delete id="deleteUserById" parameterType="java.lang.Integer" >
+    <delete id="deleteUserById" parameterType="java.lang.Long" >
         delete
         from user
         where id =#{id}
@@ -139,12 +139,40 @@
     </select>
 
     <insert id="registerUser" parameterType="com.llf.springboot.model.User" >
-        insert into user (uid,name,pwd,grade,abandon) values(#{uid},#{name},#{pwd},#{grade},#{abandon})
+    insert into user (id, uid, name, pwd, phone,time, timeOut, timeMake, pwdhint,grade,abandon)
+    values (#{_id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{PwdHint}, #{Grade}, #{Abandon})
     </insert>
 
-    <update id="updateUser" parameterType="com.llf.springboot.model.User">
-        update user set uid =#{uid},name =#{name},pwd= #{pwd},phone =#{phone},grade= #{grade},abandon =#{abandon}
-        where id =#{id}
+    <update id="updateUser" parameterType="com.llf.springboot.model.User" >
+        update user set time = #{time}
+        <if test="uid != null">
+            ,uid = #{uid}
+        </if>
+        <if test="name != null">
+            , name = #{name}
+        </if>
+        <if test="pwd != null">
+            ,pwd = #{pwd}
+        </if>
+        <if test="phone != null">
+            , phone = #{phone}
+        </if>
+        <if test="timeOut != null">
+            , timeOut = #{timeOut}
+        </if>
+        <if test="timeMake != null">
+            , timeMake = #{timeMake}
+        </if>
+        <if test="PwdHint != null">
+            , pwdhint = #{pwdhint}
+        </if>
+        <if test="grade != null">
+            , grade = #{grade}
+        </if>
+        <if test="abandon != null">
+            , abandon = #{abandon}
+        </if>
+        where id = #{id}
     </update>
 
 </mapper>

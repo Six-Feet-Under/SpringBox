@@ -54,13 +54,54 @@ public class FidFileController {
         }
     }
 
+    @ApiOperation(value = "新增文件信息接口", notes = "FidFile实体类")
+    @RequestMapping(value = "/fidFile/insertfidFile",method = RequestMethod.POST)
+    @ApiImplicitParam(name = "fidFile",value = " /** 自增主键*/\n" +
+            "    private String fid;\n" +
+            "\t/** 文件标签&分类*/\n" +
+            "\tprivate String  tag ;\n" +
+            "\t/** 创建时间 */\n" +
+            "\tprivate Long  makeTime;\n" +
+            "\t/** 借阅次数 */\n" +
+            "\tprivate Long  borrowNumber;\n" +
+            "\t/** 操作Id */\n" +
+            "\tpublic String action;\n" +
+            "\t/** 操作时间 */\n" +
+            "\tprivate Long  actionTime ;\n" +
+            "\t/** 文件名称 */\n" +
+            "\tprivate String fileName;\n" +
+            "\n" +
+            "\t/** 文件描述 */\n" +
+            "\tprivate String fileDes;\n" +
+            "\t/** 创建Id */\n" +
+            "\tprivate String creatId;\n" +
+            "\t/** 文件状态 */\n" +
+            "\tprivate String fileState;\n" +
+            "\t/** 文件位置 */\n" +
+            "\tprivate Long fileWhere;\n" +
+            "\t/** 文件标志 */\n" +
+            "\tprivate String fileAbandon;\n" +
+            "\t/** 其他信息 */\n" +
+            "\tprivate String dataStr;\n" +
+            "\t/** 文件权限 */\n" +
+            "\tpublic int filePermission = -1;\n" +
+            "\t/** 文件归属 */\n" +
+            "\tpublic String fileAttribution = \"\";",required = true,
+    dataType = "FidFile",paramType = "int")
+    public ResponseJSONResult insertfidFile(FidFile fidFile){
 
+        try {
+            return ResponseJSONResult.ok(fidFileService.insertfidFile(fidFile));
+        }catch (Exception e){
+            return ResponseJSONResult.errorSqlMsg("sql语句错误");
+        }
+    }
 
     @ApiOperation(value = "更新文件信息接口", notes = "文件信息列表")
     @RequestMapping(value = "/fidFile/updatekey", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "strs", value = "用户列表", required = true,
-                    dataType = "string", paramType = "List")
+                    dataType = "string", paramType = "List"),
     })
     public ResponseJSONResult updatekey(String strs) {
         //strs="{fid=\"1\" fileWhere=\"1\" actionTime=\"1595411202022\" action=\"000000\" fileState=\"在册\" fileAbandon=\"true\" borrowNumber=\"9\" }";
@@ -76,6 +117,49 @@ public class FidFileController {
             }
         } catch (Exception e) {
             return ResponseJSONResult.ok("格式错误");
+        }
+    }
+
+    @RequestMapping(value = "/fidFile/updatefidFile", method = RequestMethod.POST)
+    @ApiImplicitParam(name = "fidFile",value = " /** 自增主键*/\n" +
+            "    private String fid;\n" +
+            "\t/** 文件标签&分类*/\n" +
+            "\tprivate String  tag ;\n" +
+            "\t/** 创建时间 */\n" +
+            "\tprivate Long  makeTime;\n" +
+            "\t/** 借阅次数 */\n" +
+            "\tprivate Long  borrowNumber;\n" +
+            "\t/** 操作Id */\n" +
+            "\tpublic String action;\n" +
+            "\t/** 操作时间 */\n" +
+            "\tprivate Long  actionTime ;\n" +
+            "\t/** 文件名称 */\n" +
+            "\tprivate String fileName;\n" +
+            "\n" +
+            "\t/** 文件描述 */\n" +
+            "\tprivate String fileDes;\n" +
+            "\t/** 创建Id */\n" +
+            "\tprivate String creatId;\n" +
+            "\t/** 文件状态 */\n" +
+            "\tprivate String fileState;\n" +
+            "\t/** 文件位置 */\n" +
+            "\tprivate Long fileWhere;\n" +
+            "\t/** 文件标志 */\n" +
+            "\tprivate String fileAbandon;\n" +
+            "\t/** 其他信息 */\n" +
+            "\tprivate String dataStr;\n" +
+            "\t/** 文件权限 */\n" +
+            "\tpublic int filePermission = -1;\n" +
+            "\t/** 文件归属 */\n" +
+            "\tpublic String fileAttribution = \"\";",required = true,
+            dataType = "FidFile",paramType = "int")
+    public ResponseJSONResult updatefidFile(FidFile fidFile){
+        fidFile.setFid("E2005163410C01160500E4E3");
+        fidFile.setFileName("测试测试");
+        try {
+            return ResponseJSONResult.ok(fidFileService.updatefidFile(fidFile));
+        }catch (Exception e){
+            return ResponseJSONResult.errorSqlMsg("0");
         }
     }
 

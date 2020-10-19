@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public void deleteUserById(int id){
+	public void deleteUserById(Long id){
 		userMapper.deleteUserById(id);
 	}
 
@@ -71,9 +71,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void updateUser(User user) {
-		userMapper.updateUser(user);
-	}
+	public int  updateUser(User user) {
+		try {
+			userMapper.updateUser(user);
+			return 1;
+		}catch (Exception e){
+			return 0 ;
+	}}
 
 	@Override
 	public int updateByKey(Map map) {

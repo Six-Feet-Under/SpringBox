@@ -22,4 +22,8 @@ public interface FidFileService {
     FidFile selectById(String fid);
 
     List<FidFile> selectAll();
+
+    int insertfidFile(FidFile fidFile);
+
+    int updatefidFile(FidFile fidFile);
 }
