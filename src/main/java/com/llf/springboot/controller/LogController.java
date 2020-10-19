@@ -118,20 +118,15 @@ public class LogController {
     @ApiOperation(value="查找日志信息接口", notes="查找日志信息")
     @RequestMapping(value = "/log/selectList", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "log", value = "private Long id;             // 数据库主键\n" +
-                    "    private String types;        // 日志类型\n" +
-                    "    private String actionId;        // 操作Id\n" +
-                    "    private String actionResult;    // 操作结果 0 无, -1失败, 1成功\n" +
-                    "    private String uid;          // 用户id\n" +
-                    "    private String target;       // 目标\n" +
-                    "    private Long time;           // 操作时间\n" +
-                    "    private String dataStr;      // 备用数据", required = true,
-                    dataType = "Log", paramType = "List")
+            @ApiImplicitParam(name = "pageSize", value = "当前页数", required = true,
+                    dataType = "Integer", paramType = "List"),
+            @ApiImplicitParam(name = "pageCount", value = "显示的条数", required = true,
+            dataType = "Integer", paramType = "List")
     })
 
-    public ResponseJSONResult selectList(Log log){
-        List<Log> list = logService.selectList(log);
-        int count = list.size();
+    public ResponseJSONResult selectList(Integer pageSize ,Integer pageCount){
+        List<Log> list = logService.selectList((pageSize-1)*pageCount,pageCount);
+        /*int count = list.size();
         int pageSize =  10;
         int page = count / pageSize;
         PagedResult result = new PagedResult();
@@ -148,7 +143,7 @@ public class LogController {
             result.setRows(list.subList(page == 1 ? 0 : (page - 1) * pageSize,
                     count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
                             (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
-        }
+        }*/
         return ResponseJSONResult.ok(list);
     }
 

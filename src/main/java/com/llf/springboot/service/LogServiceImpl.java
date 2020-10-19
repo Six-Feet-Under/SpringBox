@@ -16,8 +16,8 @@ public class LogServiceImpl implements LogService{
 
 
     @Override
-    public List<Log> selectList(Log log) {
-        return logMapper.selectList(log);
+    public List<Log> selectList(Integer pageSize ,Integer pageCount) {
+        return logMapper.selectList(pageSize,pageCount);
     }
 
     @Override
