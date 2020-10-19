@@ -177,4 +177,13 @@
     <select id="isTrue" parameterType="java.lang.Long" resultType="java.lang.Integer">
         select * from user where id =#{id}
     </select>
+
+    <!--批量删除 -->
+    <delete id="batchDeletes" parameterType="java.util.List">
+        DELETE FROM tp_user where uname in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
 </mapper>
