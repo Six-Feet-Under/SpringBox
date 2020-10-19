@@ -131,14 +131,16 @@ public class LogController {
 
     public ResponseJSONResult selectList(Log log){
         List<Log> list = logService.selectList(log);
-       /* PagedResult result = new PagedResult();
-        if (page == null) {
+        int count = list.size();
+        int pageSize =  10;
+        int page = count / pageSize;
+        PagedResult result = new PagedResult();
+        if (page == 0) {
             page = 1;
         }
-        if (pageSize == null) {
+        if (pageSize == 0) {
             pageSize = 10;
         }
-        int count = list.size();
         if (count > 0) {
             result.setTotal(count % pageSize == 0 ? count / pageSize : count / pageSize + 1);
             result.setPage(page);
@@ -146,7 +148,7 @@ public class LogController {
             result.setRows(list.subList(page == 1 ? 0 : (page - 1) * pageSize,
                     count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
                             (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
-        }*/
+        }
         return ResponseJSONResult.ok(list);
     }
 
