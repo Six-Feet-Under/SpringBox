@@ -140,7 +140,7 @@
 
     <insert id="registerUser" parameterType="com.llf.springboot.model.User" >
     insert into user (id, uid, name, pwd, phone,time, timeOut, timeMake, pwdhint,grade,abandon)
-    values (#{_id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{PwdHint}, #{Grade}, #{Abandon})
+    values (#{id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{pwdhint}, #{grade}, #{abandon})
     </insert>
 
     <update id="updateUser" parameterType="com.llf.springboot.model.User" >
@@ -163,7 +163,7 @@
         <if test="timeMake != null">
             , timeMake = #{timeMake}
         </if>
-        <if test="PwdHint != null">
+        <if test="pwdhint != null">
             , pwdhint = #{pwdhint}
         </if>
         <if test="grade != null">
@@ -174,5 +174,7 @@
         </if>
         where id = #{id}
     </update>
-
+    <select id="isTrue" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select * from user where id =#{id}
+    </select>
 </mapper>
