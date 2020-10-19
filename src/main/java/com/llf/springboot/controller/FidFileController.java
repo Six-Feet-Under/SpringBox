@@ -54,6 +54,8 @@ public class FidFileController {
         }
     }
 
+
+
     @ApiOperation(value = "更新文件信息接口", notes = "文件信息列表")
     @RequestMapping(value = "/fidFile/updatekey", method = RequestMethod.POST)
     @ApiImplicitParams({
