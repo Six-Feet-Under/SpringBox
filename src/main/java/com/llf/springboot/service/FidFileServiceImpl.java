@@ -50,8 +50,8 @@ public class FidFileServiceImpl implements FidFileService{
     }
 
     @Override
-    public List<FidFile> selectAll() {
-        return fidFileMapper.selectAll();
+    public List<FidFile> selectAll(Integer len,Integer countNum) {
+        return fidFileMapper.selectAll(len,countNum);
     }
 
     @Override
