@@ -65,8 +65,41 @@
       )
   </insert>
 
+    <insert id="insertLog" parameterType="com.llf.springboot.model.Log">
+          /*insert into log (types, actionId, uid, time, dataStr)
+        values
+            (
+              #{types,jdbcType=VARCHAR},
+              #{actionId,jdbcType=VARCHAR},
+              #{uid,jdbcType=BIGINT},
+              #{time,jdbcType=BIGINT},
+              #{dataStr,jdbcType=VARCHAR}
+            )*/
+      INSERT INTO `qbox`.`log` (
+      `id`,
+      `types`,
+      `actionId`,
+      `actionResult`,
+      `uid`,
+      `target`,
+      `time`,
+      `dataStr`
+    )
+    VALUES
+      (
+        #(id,,jdbcType=BIGINT),
+        #{types,jdbcType=VARCHAR},
+        #{actionId,jdbcType=VARCHAR},
+        #{actionResult,jdbcType=VARCHAR}
+        #{uid,jdbcType=BIGINT},
+        #{target,jdbcType=VARCHAR},
+        #{time,jdbcType=BIGINT},
+        #{dataStr,jdbcType=VARCHAR}
+      )
+  </insert>
+
     <update id="updateByKey" parameterType="com.llf.springboot.model.Log">
-        <!--update log
+        update log
         <set>
 			<if test="types != null">
 				AND types = #{types,jdbcType=VARCHAR}
@@ -90,8 +123,22 @@
 				AND dataStr = #{dataStr,jdbcType=VARCHAR}
 			</if>
         </set>
-        where id = #{id,jdbcType=BIGINT}-->
+        where id = #{id,jdbcType=BIGINT}
 
+        /*UPDATE
+        `qbox`.`log`
+        SET
+        `types` = #{types,jdbcType=VARCHAR},
+        `actionId` = #{actionId,jdbcType=BIGINT},
+        `actionResult` = #{actionResult,jdbcType=VARCHAR},
+        `uid` = #{uid,jdbcType=BIGINT},
+        `target` = #{target,jdbcType=VARCHAR},
+        `time` = #{time,jdbcType=BIGINT},
+        `dataStr` = #{dataStr,jdbcType=VARCHAR}
+        WHERE `id` = #{id,jdbcType=BIGINT} ;*/
+    </update>
+
+    <update id="updateById" parameterType="com.llf.springboot.model.Log">
         UPDATE
         `qbox`.`log`
         SET

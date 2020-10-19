@@ -29,4 +29,6 @@ public interface UserService {
 
     int updateByKey(Map map);
 
+    int isTrue(Long id );
+
 }

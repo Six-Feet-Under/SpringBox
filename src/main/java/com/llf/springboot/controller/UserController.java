@@ -32,6 +32,32 @@ public class UserController {
 
     @ApiOperation(value = "获取用户信息接口", notes = "用户信息列表")
     @RequestMapping(value = "/user/selectAll", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", value = " " +
+                    "/** 自增主键 */\n" +
+                    "    private Long id;\n" +
+                    "    /** 登陆id 2键 */\n" +
+                    "    private String uid;\n" +
+                    "    /** 用户名 */\n" +
+                    "    private String name;\n" +
+                    "    /** 密码 */\n" +
+                    "    private String pwd;\n" +
+                    "    /** 联系方式*/\n" +
+                    "    private String phone;\n" +
+                    "    /** 登陆时间*/\n" +
+                    "    private Long time;\n" +
+                    "    /** 退出时间*/\n" +
+                    "    private Long timeOut;\n" +
+                    "    /** 创建时间*/\n" +
+                    "    private Long timeMake;\n" +
+                    "    /** 用户数据 json格式参数, 启用标记 权限 指纹标记 操作*/\n" +
+                    "    private String pwdhint;\n" +
+                    "    /** 等级*/\n" +
+                    "    private String grade;\n" +
+                    "    /** 创建时间*/\n" +
+                    "    private String abandon;", required = true,
+                    dataType = "User", paramType = "User")
+    })
 //    @ApiImplicitParams({
 //            @ApiImplicitParam(name = "user", value = "用户", required = false,
 //                    dataType = "json", paramType = "User"),
@@ -115,14 +141,36 @@ public class UserController {
     @ApiOperation(value = "注册用户信息接口", notes = "注册用户信息")
     @RequestMapping(value = "/user/registerKey", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户实体类", required = true,
+            @ApiImplicitParam(name = "user", value = " " +
+                    "/** 自增主键 */\n" +
+                    "    private Long id;\n" +
+                    "    /** 登陆id 2键 */\n" +
+                    "    private String uid;\n" +
+                    "    /** 用户名 */\n" +
+                    "    private String name;\n" +
+                    "    /** 密码 */\n" +
+                    "    private String pwd;\n" +
+                    "    /** 联系方式*/\n" +
+                    "    private String phone;\n" +
+                    "    /** 登陆时间*/\n" +
+                    "    private Long time;\n" +
+                    "    /** 退出时间*/\n" +
+                    "    private Long timeOut;\n" +
+                    "    /** 创建时间*/\n" +
+                    "    private Long timeMake;\n" +
+                    "    /** 用户数据 json格式参数, 启用标记 权限 指纹标记 操作*/\n" +
+                    "    private String pwdhint;\n" +
+                    "    /** 等级*/\n" +
+                    "    private String grade;\n" +
+                    "    /** 创建时间*/\n" +
+                    "    private String abandon;", required = true,
                     dataType = "User", paramType = "User")
     })
     public ResponseJSONResult registerkey(User user) {
         //strs="[{_id=\"8\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"1\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"3\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
         try {
              userService.registerUser(user);
-             return ResponseJSONResult.ok();
+             return ResponseJSONResult.ok(user.getGrade());
         } catch (Exception e) {
             return ResponseJSONResult.ok("格式错误");
         }
@@ -249,18 +297,51 @@ public class UserController {
     @ApiOperation(value = "修改用户",notes = "修改用户信息")
     @RequestMapping(value = "/user/updateKey",method= RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户实体类", required = true,
+            @ApiImplicitParam(name = "user", value = "" +
+                    " /** 自增主键 */\n" +
+                    "    private Long id;\n" +
+                    "    /** 登陆id 2键 */\n" +
+                    "    private String uid;\n" +
+                    "    /** 用户名 */\n" +
+                    "    private String name;\n" +
+                    "    /** 密码 */\n" +
+                    "    private String pwd;\n" +
+                    "    /** 联系方式*/\n" +
+                    "    private String phone;\n" +
+                    "    /** 登陆时间*/\n" +
+                    "    private Long time;\n" +
+                    "    /** 退出时间*/\n" +
+                    "    private Long timeOut;\n" +
+                    "    /** 创建时间*/\n" +
+                    "    private Long timeMake;\n" +
+                    "    /** 用户数据 json格式参数, 启用标记 权限 指纹标记 操作*/\n" +
+                    "    private String pwdhint;\n" +
+                    "    /** 等级*/\n" +
+                    "    private String grade;\n" +
+                    "    /** 是否禁用*/\n" +
+                    "    private String abandon;", required = true,
+
                     dataType = "User", paramType = "User")
     })
     public ResponseJSONResult updateKey(User user){
+
         try {
-            userService.updateUser(user);
             if (userService.updateUser(user) == 1) {
                 return ResponseJSONResult.ok(1);
             } else {
                 return ResponseJSONResult.ok(3);
             }
         } catch (Exception e) {
-            return ResponseJSONResult.ok("格式错误");
+            return ResponseJSONResult.ok("user错误");
         }
-}}
+}
+
+    @RequestMapping(value = "/user/isTrue",method= RequestMethod.POST)
+    public boolean isTrue(Long id){
+        if(userService.isTrue(id) != 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+}
