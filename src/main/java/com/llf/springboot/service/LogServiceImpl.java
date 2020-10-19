@@ -51,4 +51,14 @@ public class LogServiceImpl implements LogService{
         return logMapper.deleteByid(id);
     }
 
+    @Override
+    public int insertLog(Log log) {
+        return logMapper.insertLog(log);
+    }
+
+    @Override
+    public int updateById(Log log) {
+        return logMapper.updateById(log);
+    }
+
 }
