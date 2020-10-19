@@ -52,11 +52,39 @@ public class LogController {
     }
 
 
+    @ApiOperation(value="增加日志信息接口", notes="增加日志信息")
+    @RequestMapping(value = "/log/insertLog", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "log", value = "private Long id;             // 数据库主键\n" +
+                    "    private String types;        // 日志类型\n" +
+                    "    private String actionId;        // 操作Id\n" +
+                    "    private String actionResult;    // 操作结果 0 无, -1失败, 1成功\n" +
+                    "    private String uid;          // 用户id\n" +
+                    "    private String target;       // 目标\n" +
+                    "    private Long time;           // 操作时间\n" +
+                    "    private String dataStr;      // 备用数据", required = true,
+                    dataType = "Log", paramType = "int")
+
+    })
+    public ResponseJSONResult insertLog(Log log) {
+        try {
+
+            if(logService.insertLog(log) == 1) {
+                return ResponseJSONResult.ok(1);
+            } else {
+                return ResponseJSONResult.ok(0);
+            }
+
+        } catch (Exception e) {
+            return ResponseJSONResult.ok("格式错误");
+        }
+    }
+
     @ApiOperation(value="删除日志信息接口", notes="删除日志信息")
     @RequestMapping(value = "/log/deleteByKey", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户列表", required = true,
-                    dataType = "Long", paramType = "list")
+                    dataType = "Long", paramType = "int")
     })
     public ResponseJSONResult deleteByKey(Long id) {
         try {
@@ -75,7 +103,7 @@ public class LogController {
     @RequestMapping(value = "/log/deleteByid", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户列表", required = true,
-                    dataType = "Long", paramType = "list")
+                    dataType = "Long", paramType = "int")
     })
     public ResponseJSONResult deleteByid(Long id) {
 
@@ -90,14 +118,21 @@ public class LogController {
     @ApiOperation(value="查找日志信息接口", notes="查找日志信息")
     @RequestMapping(value = "/log/selectList", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "log", value = "用户列表", required = true,
+            @ApiImplicitParam(name = "log", value = "private Long id;             // 数据库主键\n" +
+                    "    private String types;        // 日志类型\n" +
+                    "    private String actionId;        // 操作Id\n" +
+                    "    private String actionResult;    // 操作结果 0 无, -1失败, 1成功\n" +
+                    "    private String uid;          // 用户id\n" +
+                    "    private String target;       // 目标\n" +
+                    "    private Long time;           // 操作时间\n" +
+                    "    private String dataStr;      // 备用数据", required = true,
                     dataType = "Log", paramType = "List")
     })
 
     public ResponseJSONResult selectList(Log log){
         List<Log> list = logService.selectList(log);
-        PagedResult result = new PagedResult();
-        /*if (page == null) {
+       /* PagedResult result = new PagedResult();
+        if (page == null) {
             page = 1;
         }
         if (pageSize == null) {
@@ -146,8 +181,15 @@ public class LogController {
     @ApiOperation(value="更新日志信息接口", notes="更新日志信息")
     @RequestMapping(value = "/log/updateByKey", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "log", value = "用户列表", required = true,
-                    dataType = "Log", paramType = "list")
+            @ApiImplicitParam(name = "log", value = "private Long id;             // 数据库主键\n" +
+                    "    private String types;        // 日志类型\n" +
+                    "    private String actionId;        // 操作Id\n" +
+                    "    private String actionResult;    // 操作结果 0 无, -1失败, 1成功\n" +
+                    "    private String uid;          // 用户id\n" +
+                    "    private String target;       // 目标\n" +
+                    "    private Long time;           // 操作时间\n" +
+                    "    private String dataStr;      // 备用数据", required = true,
+                    dataType = "Log", paramType = "int")
     })
     public ResponseJSONResult updateByKey(Log log) {
 
@@ -159,11 +201,41 @@ public class LogController {
 
     }
 
+    @ApiOperation(value="更新日志信息接口", notes="更新日志信息")
+    @RequestMapping(value = "/log/updateById", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "log", value = "private Long id;             // 数据库主键\n" +
+                    "    private String types;        // 日志类型\n" +
+                    "    private String actionId;        // 操作Id\n" +
+                    "    private String actionResult;    // 操作结果 0 无, -1失败, 1成功\n" +
+                    "    private String uid;          // 用户id\n" +
+                    "    private String target;       // 目标\n" +
+                    "    private Long time;           // 操作时间\n" +
+                    "    private String dataStr;      // 备用数据", required = true,
+                    dataType = "Log", paramType = "int")
+    })
+    public ResponseJSONResult updateById(Log log) {
+
+        if (logService.updateById(log) != 1) {
+            return ResponseJSONResult.ok(0);
+        } else {
+            return ResponseJSONResult.ok(1);
+        }
+
+    }
+
     @ApiOperation(value="详细信息日志信息接口", notes="详细信息日志信息")
     @RequestMapping(value = "/log/detailsLog", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "log", value = "用户列表", required = true,
-                    dataType = "Log", paramType = "list")
+            @ApiImplicitParam(name = "log", value = "private Long id;             // 数据库主键\n" +
+                    "    private String types;        // 日志类型\n" +
+                    "    private String actionId;        // 操作Id\n" +
+                    "    private String actionResult;    // 操作结果 0 无, -1失败, 1成功\n" +
+                    "    private String uid;          // 用户id\n" +
+                    "    private String target;       // 目标\n" +
+                    "    private Long time;           // 操作时间\n" +
+                    "    private String dataStr;      // 备用数据", required = true,
+                    dataType = "Log", paramType = "Log")
     })
     public ResponseJSONResult detailsLog(Log log) {
 

@@ -23,4 +23,7 @@ public interface LogService {
 
     int deleteByid(Long id);
 
+    int insertLog(Log log);
+
+    int updateById(Log log);
 }
