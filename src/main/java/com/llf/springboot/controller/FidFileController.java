@@ -154,6 +154,8 @@ public class FidFileController {
             "\tpublic String fileAttribution = \"\";",required = true,
             dataType = "FidFile",paramType = "int")
     public ResponseJSONResult updatefidFile(FidFile fidFile){
+        fidFile.setFid("E2005163410C01160500E4E3");
+        fidFile.setFileName("测试测试");
         try {
             return ResponseJSONResult.ok(fidFileService.updatefidFile(fidFile));
         }catch (Exception e){
