@@ -236,9 +236,13 @@ public class UserController {
         return ResponseJSONResult.errorSqlMsg("sql错误");}
     }
 
+    @ApiOperation(value = "批量删除",notes = "根据用户Id批量删除用户")
     @RequestMapping(value = "/user/batchDelete",method= RequestMethod.POST)
-    public void batchDelete(HttpServletRequest request,HttpServletResponse response){
-
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "request", value = "request", required = true,
+                    dataType = "从前端获取items", paramType = "request")
+    })
+    public void batchDelete(HttpServletRequest request){
             String items = request.getParameter("delitems");
             List<String> delList = new ArrayList<String>();
             String[] strs = items.split(",");
