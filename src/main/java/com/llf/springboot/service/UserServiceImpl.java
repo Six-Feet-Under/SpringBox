@@ -74,7 +74,6 @@ public class UserServiceImpl implements UserService{
 	public int updateUser(User user) {
 		try {
 			userMapper.updateUser(user);
-			System.out.println("userMapper.updateUser"+userMapper.updateUser(user));
 			return 1;
 		}catch (Exception e){
 			return 0 ;
@@ -98,5 +97,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void batchDeletes(List delList) {
 		 userMapper.batchDeletes(delList);
+	}
+
+	@Override
+	public int insertUser(Map map) {
+
+		return	userMapper.insertUser(map);
+
 	}
 }

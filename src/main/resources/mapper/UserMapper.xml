@@ -56,6 +56,10 @@
     values (#{id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{PwdHint}, #{Grade}, #{Abandon})
   </insert>
 
+    <insert id="insertUser" parameterType="java.util.HashMap">
+        insert into user (id,uid,name,pwd,pwdhint,grade)
+        values (#{id},#{uid},#{name},#{pwd},#{pwdhint},#{grade})
+    </insert>
 
     <update id="updateByKey" parameterType="java.util.HashMap">
         update user set time = #{time}
