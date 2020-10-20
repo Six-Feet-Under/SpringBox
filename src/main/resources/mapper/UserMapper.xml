@@ -40,7 +40,7 @@
     </select>
 
     <select id="checkkey"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select time from user where id = #{_id}
+        select time from user where id = #{id}
     </select>
 
     <delete id="deleteByKey"  parameterType="java.util.HashMap">
@@ -53,7 +53,7 @@
 
     <insert id="insertkey" parameterType="java.util.HashMap">
     insert into user (id, uid, name, pwd, phone,time, timeOut, timeMake, pwdhint,grade,abandon)
-    values (#{_id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{PwdHint}, #{Grade}, #{Abandon})
+    values (#{id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{PwdHint}, #{Grade}, #{Abandon})
   </insert>
 
 
