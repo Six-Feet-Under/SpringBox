@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,8 +43,9 @@ public class FidFileController {
             @ApiImplicitParam(name = "countNum",value = "每页的数据条数",required = true,
             dataType = "Integer",paramType = "list")
     })
-    public ResponseJSONResult selectList(Integer pageNum,Integer countNum) {
-        return ResponseJSONResult.ok(fidFileService.selectAll((pageNum-1)*countNum,countNum));
+    public ResponseJSONResult selectList(@Param("len") Integer pageNum, @Param("countNum") Integer countNum) {
+        pageNum = (pageNum-1)*countNum;
+        return ResponseJSONResult.ok(fidFileService.selectAll(pageNum,countNum));
     }
 
     @ApiOperation(value = "新增文件信息接口", notes = "文件信息Map")
