@@ -35,7 +35,7 @@ public class FidFileController {
         return ResponseJSONResult.ok(list);
     }
 
-    @ApiOperation(value = "获取所有文件信息", notes = "文件list")
+    @ApiOperation(value = "获取所有文件信息", notes = "文件信息Map")
     @RequestMapping(value = "/fidFile/selectList", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "查询第几页",required = true,

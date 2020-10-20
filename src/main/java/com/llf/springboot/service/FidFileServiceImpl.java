@@ -5,6 +5,7 @@ import com.llf.springboot.model.FidFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,8 +51,11 @@ public class FidFileServiceImpl implements FidFileService{
     }
 
     @Override
-    public List<FidFile> selectAll(Integer len,Integer countNum) {
-        return fidFileMapper.selectAll(len,countNum);
+    public Map selectAll(Integer len,Integer countNum) {
+        Map map = new HashMap();
+        map.put("list",fidFileMapper.selectAll(len,countNum));
+        map.put("count",fidFileMapper.count());
+        return map;
     }
 
     @Override

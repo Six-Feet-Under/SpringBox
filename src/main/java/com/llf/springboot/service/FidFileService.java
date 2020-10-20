@@ -21,7 +21,7 @@ public interface FidFileService {
 
     FidFile selectById(String fid);
 
-    List<FidFile> selectAll(Integer len,Integer countNum);
+    Map selectAll(Integer len,Integer countNum);
 
     int insertfidFile(FidFile fidFile);
 

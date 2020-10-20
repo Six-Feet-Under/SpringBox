@@ -132,6 +132,10 @@
         select * from fidfile limit #{param1},#{param2}
     </select>
 
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from fidfile
+    </select>
+
     <insert id="insertkey" parameterType="com.llf.springboot.model.FidFile">
         insert into fidfile (fid, tag, makeTime, borrowNumber ,action, actionTime, fileName, fileDes ,creatId, fileState, fileWhere, fileAbandon, dataStr ,filePermission ,fileAttribution)
         values (#{fid}, #{tag}, #{makeTime}, #{borrowNumber} ,#{action}, #{actionTime}, #{fileName}, #{fileDes} ,#{creatId}, #{fileState}, #{fileWhere}, #{fileAbandon}, #{dataStr} ,#{filePermission} ,#{fileAttribution})
