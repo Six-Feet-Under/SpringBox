@@ -5,6 +5,7 @@ import com.llf.springboot.model.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +17,11 @@ public class LogServiceImpl implements LogService{
 
 
     @Override
-    public List<Log> selectList(Integer pageSize ,Integer pageCount) {
-        return logMapper.selectList(pageSize,pageCount);
+    public Map selectList(Integer pageSize ,Integer pageCount) {
+        Map map = new HashMap();
+        map.put("list",logMapper.selectList(pageSize,pageCount));
+        map.put("count",logMapper.count());
+        return map;
     }
 
     @Override

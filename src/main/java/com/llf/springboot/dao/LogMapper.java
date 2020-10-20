@@ -26,4 +26,6 @@ public interface LogMapper {
     int insertLog(Log log);
 
     int updateById(Log log);
+
+    Integer count();
 }
