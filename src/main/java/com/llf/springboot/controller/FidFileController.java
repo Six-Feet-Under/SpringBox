@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class FidFileController {
             @ApiImplicitParam(name = "countNum",value = "每页的数据条数",required = true,
             dataType = "Integer",paramType = "list")
     })
-    public ResponseJSONResult selectList(@Param("len") Integer pageNum, @Param("countNum") Integer countNum) {
+    public ResponseJSONResult selectList(Integer pageNum, Integer countNum) {
         pageNum = (pageNum-1)*countNum;
         return ResponseJSONResult.ok(fidFileService.selectAll(pageNum,countNum));
     }

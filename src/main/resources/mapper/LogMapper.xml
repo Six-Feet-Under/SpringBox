@@ -16,11 +16,11 @@
     	id, types, actionId, actionResult ,uid, target, time, dataStr
   	</sql>
 
-    <select id="selectList" resultMap="java.util.Map" parameterType="java.lang.Integer">
+    <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
          select * from log limit #{param1},#{param2}
     </select>
 
-    <select id="selectList" resultType="java.lang.Integer">
+    <select id="count" resultType="java.lang.Integer">
          select count(*) from log
     </select>
 

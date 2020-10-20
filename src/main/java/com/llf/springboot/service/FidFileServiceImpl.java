@@ -51,9 +51,9 @@ public class FidFileServiceImpl implements FidFileService{
     }
 
     @Override
-    public Map selectAll(Integer len,Integer countNum) {
+    public Map selectAll(Integer pageNum,Integer countNum) {
         Map map = new HashMap();
-        map.put("list",fidFileMapper.selectAll(len,countNum));
+        map.put("list",fidFileMapper.selectAll(pageNum,countNum));
         map.put("count",fidFileMapper.count());
         return map;
     }
