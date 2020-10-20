@@ -6,6 +6,7 @@ import com.llf.springboot.model.FidFile;
 import com.llf.springboot.model.Log;
 import com.llf.springboot.service.FidFileService;
 import com.llf.springboot.service.LogService;
+import com.llf.springboot.util.ExcelUtil;
 import com.llf.springboot.util.PagedResult;
 import com.llf.springboot.util.ResponseJSONResult;
 import io.swagger.annotations.Api;
@@ -13,12 +14,17 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -144,7 +150,13 @@ public class LogController {
                     count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
                             (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
         }*/
-        return ResponseJSONResult.ok(logService.selectList((pageSize-1)*pageCount,pageCount));
+        try {
+
+            return ResponseJSONResult.ok(logService.selectList((pageSize - 1) * pageCount, pageCount));
+        } catch (Exception e) {
+            return ResponseJSONResult.errorMsg("信息错误");
+        }
+        //return ResponseJSONResult.ok(logService.selectList((pageSize-1)*pageCount,pageCount));
     }
 
     @ApiOperation(value="根据日志id查找日志信息接口", notes="根据日志id查找日志信息")
@@ -238,5 +250,54 @@ public class LogController {
 
         return ResponseJSONResult.ok(logService.detailsLog(log));
 
+    }
+
+
+    /**
+     * 导出t_site为Excel
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping(value = "/exportExcelOfSite", method = RequestMethod.POST)
+    public void exportExcelOfSite(HttpServletResponse response, String user_site) throws Exception {
+
+        Map map = new HashMap();
+        map.put("user_site",user_site);
+        //要导出文件的list集合
+        List<Map> list = new ArrayList();
+        //list = deviceGroupService.listSite(map);
+        String fileName = "场地列表·" + System.currentTimeMillis() + ".xlsx";
+
+        //sheet名
+        String sheetName = "场地中心";
+        String[][] content = new String[list.size()][8];
+
+        for (int i = 0; i < list.size(); i++) {
+
+            Map obj = list.get(i);
+            String state = null;//状态
+
+            ExcelUtil su = new ExcelUtil();
+            content[i][0] = su.cecknull(String.valueOf(obj.get("name")));
+            content[i][1] = su.cecknull(String.valueOf(obj.get("describe")));
+            content[i][2] = su.cecknull(String.valueOf(state));
+            content[i][3] = su.cecknull(String.valueOf(obj.get("tag")));
+            content[i][4] = su.cecknull(String.valueOf(obj.get("user_site")));
+            content[i][5] = su.cecknull(String.valueOf(obj.get("tag")));
+        }
+
+        //创建HSSFWorkbook
+        SXSSFWorkbook wb = ExcelUtil.getSXSSFWorkbook(sheetName, new String[]{"名称", "描述", "状态", "信息","责任人","标签"}, content, null);
+
+        //响应到客户端
+        try {
+            ExcelUtil.setResponseHeader(response, fileName);
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -17,7 +17,12 @@
   	</sql>
 
     <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-         select * from log limit #{param1},#{param2}
+
+        <where>
+            <if test="txt!=null and txt!=''">
+                fid like '%'||#{txt}||'%' or fid like '%'||#{fileName}||'%'
+            </if>
+        </where>
     </select>
 
     <select id="count" resultType="java.lang.Integer">
