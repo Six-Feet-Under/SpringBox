@@ -7,6 +7,7 @@
 
 ##通过key删除用户     接口：/user/deleteByKey       param:String strs
 ##通过id删除用户      接口：/user/deleteById        param:Long `id`
+##通过id批量删除用户   接口：/user/batchDelete       param:request 获取前端items
 
 ##更新用户           接口：/user/updateKey         param:User user
 
