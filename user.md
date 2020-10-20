@@ -2,7 +2,8 @@
 
 ##登录              接口：/user/login             param:String name, String pwd
 
-##通过key新增用户     接口：/user/insertKey         param:User user
+##通过key新增用户     接口：/user/insertKey         param:String strs 
+##新增用户           接口：/user/insertUser        param:String strs
 ##注册用户           接口：/user/registerKey       param:User user
 
 ##通过key删除用户     接口：/user/deleteByKey       param:String strs
