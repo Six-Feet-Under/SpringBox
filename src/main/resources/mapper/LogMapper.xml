@@ -18,11 +18,18 @@
 
     <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 
-        <where>
-            <if test="txt!=null and txt!=''">
-                fid like '%'||#{txt}||'%' or fid like '%'||#{fileName}||'%'
-            </if>
-        </where>
+    SELECT
+	log.id, log.types, user.`name` as actionId, log.actionResult ,log.uid, log.target, log.time, log.dataStr
+FROM
+	log join user on log.actionId=user.uid limit #{param1},#{param2}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap" >
+
+    SELECT
+	log.id, log.types, user.`name` as actionId, log.actionResult ,log.uid, log.target, log.time, log.dataStr
+FROM
+	log join user on log.actionId=user.uid
     </select>
 
     <select id="count" resultType="java.lang.Integer">

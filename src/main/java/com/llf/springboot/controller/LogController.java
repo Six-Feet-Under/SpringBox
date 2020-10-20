@@ -159,6 +159,41 @@ public class LogController {
         //return ResponseJSONResult.ok(logService.selectList((pageSize-1)*pageCount,pageCount));
     }
 
+    @ApiOperation(value="查找日志信息接口", notes="查找日志信息")
+    @RequestMapping(value = "/log/selectAll", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "", value = "", required = true,
+                    dataType = "", paramType = "List")
+    })
+
+    public ResponseJSONResult selectAll(){
+        /*int count = list.size();
+        int pageSize =  10;
+        int page = count / pageSize;
+        PagedResult result = new PagedResult();
+        if (page == 0) {
+            page = 1;
+        }
+        if (pageSize == 0) {
+            pageSize = 10;
+        }
+        if (count > 0) {
+            result.setTotal(count % pageSize == 0 ? count / pageSize : count / pageSize + 1);
+            result.setPage(page);
+            result.setRecords(count);
+            result.setRows(list.subList(page == 1 ? 0 : (page - 1) * pageSize,
+                    count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
+                            (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
+        }*/
+        try {
+
+            return ResponseJSONResult.ok(logService.selectAll());
+        } catch (Exception e) {
+            return ResponseJSONResult.errorMsg("信息错误");
+        }
+        //return ResponseJSONResult.ok(logService.selectList((pageSize-1)*pageCount,pageCount));
+    }
+
     @ApiOperation(value="根据日志id查找日志信息接口", notes="根据日志id查找日志信息")
     @RequestMapping(value = "/log/selectLogById", method = RequestMethod.POST)
     @ApiImplicitParams({
@@ -258,36 +293,39 @@ public class LogController {
      * @param response
      * @throws Exception
      */
-    @RequestMapping(value = "/exportExcelOfSite", method = RequestMethod.POST)
-    public void exportExcelOfSite(HttpServletResponse response, String user_site) throws Exception {
+    @RequestMapping(value = "/log/exportExcelOfSite", method = RequestMethod.POST)
+
+    public void exportExcelOfSite(HttpServletResponse response, Integer pageSize,Integer pageCount) throws Exception {
 
         Map map = new HashMap();
-        map.put("user_site",user_site);
+        map.put("pageSize",pageSize);
+        map.put("pageCount",pageCount);
         //要导出文件的list集合
         List<Map> list = new ArrayList();
-        //list = deviceGroupService.listSite(map);
-        String fileName = "场地列表·" + System.currentTimeMillis() + ".xlsx";
+        list = logService.selectAll();
+        String fileName = "日志列表·" + System.currentTimeMillis() + ".xlsx";
 
         //sheet名
-        String sheetName = "场地中心";
+        String sheetName = "日志";
         String[][] content = new String[list.size()][8];
 
         for (int i = 0; i < list.size(); i++) {
 
             Map obj = list.get(i);
-            String state = null;//状态
 
             ExcelUtil su = new ExcelUtil();
-            content[i][0] = su.cecknull(String.valueOf(obj.get("name")));
-            content[i][1] = su.cecknull(String.valueOf(obj.get("describe")));
-            content[i][2] = su.cecknull(String.valueOf(state));
-            content[i][3] = su.cecknull(String.valueOf(obj.get("tag")));
-            content[i][4] = su.cecknull(String.valueOf(obj.get("user_site")));
-            content[i][5] = su.cecknull(String.valueOf(obj.get("tag")));
+            content[i][0] = su.cecknull(String.valueOf(obj.get("id")));
+            content[i][1] = su.cecknull(String.valueOf(obj.get("types")));
+            content[i][2] = su.cecknull(String.valueOf(obj.get("actionId")));
+            content[i][3] = su.cecknull(String.valueOf(obj.get("actionResult")));
+            content[i][4] = su.cecknull(String.valueOf(obj.get("uid")));
+            content[i][5] = su.cecknull(String.valueOf(obj.get("target")));
+            content[i][5] = su.cecknull(String.valueOf(obj.get("time")));
+            content[i][5] = su.cecknull(String.valueOf(obj.get("dataStr")));
         }
 
         //创建HSSFWorkbook
-        SXSSFWorkbook wb = ExcelUtil.getSXSSFWorkbook(sheetName, new String[]{"名称", "描述", "状态", "信息","责任人","标签"}, content, null);
+        SXSSFWorkbook wb = ExcelUtil.getSXSSFWorkbook(sheetName, new String[]{"日志id", "日志类型", "操作Id", "用户id","目标","操作时间","详细数据"}, content, null);
 
         //响应到客户端
         try {
