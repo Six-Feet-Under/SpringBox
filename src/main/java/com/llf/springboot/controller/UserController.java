@@ -149,19 +149,13 @@ public class UserController {
         // strs="[{id=\"11\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"111\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"122\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
         //strs="[{id=\"22\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" abandon=\"false\" grade=\"1\" pwdhint=\"\"}]";
         try {
-            strs = "[{\"uid\":\"111\",\"grade\":\"1\",\"name\":\"嘿嘿\",\"pwd\":\"123456\",\"pwdhint\":\"111\",\"abandon\":\"false\"}]\n";
-
             strs = strs.replace("=", ":");
             strs = strs.replace(", ", ",");
             strs = strs.replace(" ", ",");
             strs = strs.replace("null", "-1");
-
-            System.out.println(strs);
             List lisMap = JSON.parseArray(strs);
-            System.out.println(lisMap+"aaa");
              for (int i = 0; i < lisMap.size(); i++) {
                 Map map = JSON.parseObject(lisMap.get(i).toString());
-                System.out.println(map+"   b  ");
                 userService.insertUser(map);
             }
             return ResponseJSONResult.ok("成功");
