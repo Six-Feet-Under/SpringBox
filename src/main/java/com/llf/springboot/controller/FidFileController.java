@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -41,11 +42,18 @@ public class FidFileController {
             @ApiImplicitParam(name = "pageNum", value = "查询第几页",required = true,
             dataType = "Integer",paramType = "list"),
             @ApiImplicitParam(name = "countNum",value = "每页的数据条数",required = true,
-            dataType = "Integer",paramType = "list")
+            dataType = "Integer",paramType = "list"),
+            @ApiImplicitParam(name = "txt",value = "过滤条件",required = false,
+            dataType = "String",paramType = "list")
     })
-    public ResponseJSONResult selectList(@Param("len") Integer pageNum, @Param("countNum") Integer countNum) {
-        pageNum = (pageNum-1)*countNum;
-        return ResponseJSONResult.ok(fidFileService.selectAll(pageNum,countNum));
+    public ResponseJSONResult selectList(Integer pageNum, Integer countNum,String txt) {
+        try {
+            pageNum = (pageNum-1)*countNum;
+            return ResponseJSONResult.ok(fidFileService.selectAll(pageNum,countNum));
+        }catch (Exception e){
+            return ResponseJSONResult.errorMsg("信息错误");
+        }
+
     }
 
     @ApiOperation(value = "新增文件信息接口", notes = "文件信息Map")

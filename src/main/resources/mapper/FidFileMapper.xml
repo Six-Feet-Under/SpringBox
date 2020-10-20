@@ -128,8 +128,15 @@
     </select>
 
 
-    <select id="selectAll" resultType="com.llf.springboot.model.FidFile" parameterType="java.lang.Integer">
-        select * from fidfile limit #{param1},#{param2}
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+     select * from fidfile
+     <where>
+         <if test="txt!=null and txt!=''">
+             fid like '%'||#{txt}||'%' or fid like '%'||#{fileName}||'%'
+         </if>
+     </where>
+
+     limit #{param1},#{param2}
     </select>
 
     <select id="count" resultType="java.lang.Integer">

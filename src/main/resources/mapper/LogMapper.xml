@@ -16,11 +16,16 @@
     	id, types, actionId, actionResult ,uid, target, time, dataStr
   	</sql>
 
-    <select id="selectList" resultMap="java.util.Map" parameterType="java.lang.Integer">
-         select * from log limit #{param1},#{param2}
+    <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+
+        <where>
+            <if test="txt!=null and txt!=''">
+                fid like '%'||#{txt}||'%' or fid like '%'||#{fileName}||'%'
+            </if>
+        </where>
     </select>
 
-    <select id="selectList" resultType="java.lang.Integer">
+    <select id="count" resultType="java.lang.Integer">
          select count(*) from log
     </select>
 
