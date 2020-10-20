@@ -9,7 +9,7 @@ import java.util.Map;
 @Repository
 public interface LogService {
 
-    List<Log> selectList(Log log);
+    List<Log> selectList(Integer pageSize ,Integer pageCount);
 
     int deleteByKey(Long id);
 

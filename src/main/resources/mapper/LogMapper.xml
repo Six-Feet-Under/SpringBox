@@ -16,8 +16,8 @@
     	id, types, actionId, actionResult ,uid, target, time, dataStr
   	</sql>
 
-    <select id="selectList" resultMap="BaseResultMap" parameterType="com.llf.springboot.model.Log">
-         select * from log
+    <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+         select * from log limit #{pageSize},#{pageCount}
     </select>
 
     <select id="selectLogById" resultMap="BaseResultMap" parameterType="java.lang.Long">
