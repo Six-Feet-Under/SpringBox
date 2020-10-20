@@ -126,7 +126,6 @@ public class LogController {
     })
 
     public ResponseJSONResult selectList(@Param("pageSize") Integer pageSize , @Param("pageCount") Integer pageCount){
-        List<Log> list = logService.selectList((pageSize-1)*pageCount,pageCount);
         /*int count = list.size();
         int pageSize =  10;
         int page = count / pageSize;
@@ -145,7 +144,7 @@ public class LogController {
                     count - (page == 1 ? 0 : (page - 1) * pageSize) > pageSize ?
                             (page == 1 ? 0 : (page - 1) * pageSize) + pageSize : count));
         }*/
-        return ResponseJSONResult.ok(list);
+        return ResponseJSONResult.ok(logService.selectList((pageSize-1)*pageCount,pageCount));
     }
 
     @ApiOperation(value="根据日志id查找日志信息接口", notes="根据日志id查找日志信息")
