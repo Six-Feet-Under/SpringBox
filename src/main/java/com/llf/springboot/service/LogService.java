@@ -26,4 +26,6 @@ public interface LogService {
     int insertLog(Log log);
 
     int updateById(Log log);
+
+    List selectAll();
 }

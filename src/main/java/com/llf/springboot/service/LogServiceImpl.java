@@ -65,4 +65,9 @@ public class LogServiceImpl implements LogService{
         return logMapper.updateById(log);
     }
 
+    @Override
+    public List selectAll() {
+        return logMapper.selectAll();
+    }
+
 }
