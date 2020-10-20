@@ -20,6 +20,10 @@
          select * from log limit #{param1},#{param2}
     </select>
 
+    <select id="selectList" resultType="java.lang.Integer">
+         select count(*) from log
+    </select>
+
     <select id="selectLogById" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select * from log where id = #{id,jdbcType=BIGINT}
     </select>
