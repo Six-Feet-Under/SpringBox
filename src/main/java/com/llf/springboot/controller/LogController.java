@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -124,7 +125,7 @@ public class LogController {
             dataType = "Integer", paramType = "List")
     })
 
-    public ResponseJSONResult selectList(Integer pageSize ,Integer pageCount){
+    public ResponseJSONResult selectList(@Param("pageSize") Integer pageSize , @Param("pageCount") Integer pageCount){
         List<Log> list = logService.selectList((pageSize-1)*pageCount,pageCount);
         /*int count = list.size();
         int pageSize =  10;

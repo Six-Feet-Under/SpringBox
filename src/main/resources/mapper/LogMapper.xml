@@ -17,7 +17,7 @@
   	</sql>
 
     <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-         select * from log limit #{pageSize},#{pageCount}
+         select * from log limit #{param1},#{param2}
     </select>
 
     <select id="selectLogById" resultMap="BaseResultMap" parameterType="java.lang.Long">
