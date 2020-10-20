@@ -293,13 +293,9 @@ public class LogController {
      * @param response
      * @throws Exception
      */
-    @RequestMapping(value = "/log/exportExcelOfSite", method = RequestMethod.POST)
+    @RequestMapping(value = "/log/exportExcelOfSite", method = RequestMethod.GET)
 
-    public void exportExcelOfSite(HttpServletResponse response, Integer pageSize,Integer pageCount) throws Exception {
-
-        Map map = new HashMap();
-        map.put("pageSize",pageSize);
-        map.put("pageCount",pageCount);
+    public void exportExcelOfSite(HttpServletResponse response) throws Exception {
         //要导出文件的list集合
         List<Map> list = new ArrayList();
         list = logService.selectAll();

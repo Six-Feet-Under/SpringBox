@@ -202,16 +202,13 @@ public class FidFileController {
      * @param response
      * @throws Exception
      */
-    @RequestMapping(value = "/exportExcelOfSite", method = RequestMethod.POST)
+    @RequestMapping(value = "/fidFile/exportExcelOfSite", method = RequestMethod.GET)
     @ApiImplicitParams(
             @ApiImplicitParam(name = "response",required = true,
             dataType = "reponse",paramType = "Excel")
 
     )
-    public void exportExcelOfSite(HttpServletResponse response, String user_site) throws Exception {
-
-        Map map = new HashMap();
-        map.put("user_site",user_site);
+    public void exportExcelOfSite(HttpServletResponse response) throws Exception {
         //要导出文件的list集合
         List<Map> list = new ArrayList();
         //list = deviceGroupService.listSite(map);

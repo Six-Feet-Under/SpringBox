@@ -127,8 +127,8 @@
         </where>
     </select>
 
-    <select id="listFile" resultType="com.llf.springboot.model.FidFile">
-        select * from fidFile
+    <select id="listFile" resultType="java.util.HashMap">
+        select * from fidfile
     </select>
 
 
