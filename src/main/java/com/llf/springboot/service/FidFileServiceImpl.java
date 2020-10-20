@@ -77,4 +77,9 @@ public class FidFileServiceImpl implements FidFileService{
             return 0;
         }
     }
+
+    @Override
+    public List listFile() {
+        return fidFileMapper.listFile();
+    }
 }

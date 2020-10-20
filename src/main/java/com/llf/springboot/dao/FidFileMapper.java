@@ -25,5 +25,7 @@ public interface FidFileMapper {
     int updatefidFile(FidFile fidFile);
 
     Integer count();
+
+    List listFile();
 }
 

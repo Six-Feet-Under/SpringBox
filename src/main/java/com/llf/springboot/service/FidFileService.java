@@ -26,4 +26,6 @@ public interface FidFileService {
     int insertfidFile(FidFile fidFile);
 
     int updatefidFile(FidFile fidFile);
+
+    List listFile();
 }
