@@ -18,7 +18,7 @@ public interface FidFileMapper {
 
     FidFile selectById(String fid);
 
-    List<FidFile> selectAll(Integer pageNum,Integer countNum);
+    List<FidFile> selectAll(Integer pageNum,Integer countNum,String txt);
 
     int insertfidFile(FidFile fidFile);
 

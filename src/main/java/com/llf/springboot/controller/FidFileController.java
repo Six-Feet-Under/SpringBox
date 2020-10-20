@@ -55,7 +55,7 @@ public class FidFileController {
     public ResponseJSONResult selectList(Integer pageNum, Integer countNum,String txt) {
         try {
             pageNum = (pageNum-1)*countNum;
-            return ResponseJSONResult.ok(fidFileService.selectAll(pageNum,countNum));
+            return ResponseJSONResult.ok(fidFileService.selectAll(pageNum,countNum,txt));
         }catch (Exception e){
             return ResponseJSONResult.errorMsg("信息错误");
         }
