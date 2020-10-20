@@ -28,4 +28,6 @@ public interface LogMapper {
     int updateById(Log log);
 
     Integer count();
+
+    List selectAll();
 }
