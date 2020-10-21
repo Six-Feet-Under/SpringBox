@@ -118,7 +118,6 @@ public class UserController {
     public ResponseJSONResult selectPageAll(int pageNum,int countNum,String key){
             try {
                 pageNum = (pageNum-1)*countNum;
-                System.out.println(pageNum + " " + countNum);
                 return ResponseJSONResult.ok(userService.selectPageAll(pageNum,countNum,key));
             }catch (Exception e){
                 return ResponseJSONResult.errorMsg("信息错误");

@@ -41,9 +41,11 @@
 
     <select id="selectPageAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select *from user
-        <if test="key!=null and key!=''">
-            uid like "%"#{key}"%" or name like "%"#{key}"%"
+        <where>
+        <if test="param3!=null and param3!=''">
+            id like "%"#{param3}"%" or name like "%"#{param3}"%"
         </if>
+        </where>
              limit #{param1},#{param2}
     </select>
 
