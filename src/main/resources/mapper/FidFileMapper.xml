@@ -127,16 +127,16 @@
         </where>
     </select>
 
-    <select id="listFile" resultType="com.llf.springboot.model.FidFile">
-        select * from fidFile
+    <select id="listFile" resultType="java.util.HashMap">
+        select * from fidfile
     </select>
 
 
-    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.Map">
      select * from fidfile
      <where>
-         <if test="txt!=null and txt!=''">
-             fid like '%'||#{txt}||'%' or fid like '%'||#{fileName}||'%'
+         <if test="param3!=null and param3!=''">
+             fid like "%"#{param3}"%" or fileName like "%"#{param3}"%"
          </if>
      </where>
 
