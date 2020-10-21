@@ -111,13 +111,15 @@ public class UserController {
             @ApiImplicitParam(name = "pageNum", value = "查询第几页",required = true,
                     dataType = "Integer",paramType = "list"),
             @ApiImplicitParam(name = "countNum",value = "每页的数据条数",required = true,
-                    dataType = "Integer",paramType = "list")
+                    dataType = "Integer",paramType = "list"),
+            @ApiImplicitParam(name = "key",value = "过滤条件",required = false,
+                    dataType = "String",paramType = "list")
     })
-    public ResponseJSONResult selectPageAll(int pageNum,int countNum){
+    public ResponseJSONResult selectPageAll(int pageNum,int countNum,String key){
             try {
                 pageNum = (pageNum-1)*countNum;
                 System.out.println(pageNum + " " + countNum);
-                return ResponseJSONResult.ok(userService.selectPageAll(pageNum,countNum));
+                return ResponseJSONResult.ok(userService.selectPageAll(pageNum,countNum,key));
             }catch (Exception e){
                 return ResponseJSONResult.errorMsg("信息错误");
 

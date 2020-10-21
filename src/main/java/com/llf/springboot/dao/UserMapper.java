@@ -16,7 +16,7 @@ public interface UserMapper {
 
     int insertkey(Map map);
 
-    List<User>  selectPageAll(int pageNum,int countNum);
+    List<User>  selectPageAll(int pageNum,int countNum,String key);
 
     Integer count();
 

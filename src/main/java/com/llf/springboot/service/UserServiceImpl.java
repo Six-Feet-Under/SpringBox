@@ -108,9 +108,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Map selectPageAll(int pageNum,int countNum) {
+	public Map selectPageAll(int pageNum,int countNum,String key) {
 		Map map = new HashMap();
-		map.put("list",userMapper.selectPageAll(pageNum,countNum));
+		map.put("list",userMapper.selectPageAll(pageNum,countNum,key));
 		map.put("count",userMapper.count());
 		return map;
 	}
