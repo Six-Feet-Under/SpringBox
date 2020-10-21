@@ -43,7 +43,7 @@
         select *from user
         <where>
         <if test="param3!=null and param3!=''">
-            id like "%"#{param3}"%" or name like "%"#{param3}"%"
+            uid like "%"#{param3}"%" or name like "%"#{param3}"%"
         </if>
         </where>
              limit #{param1},#{param2}
