@@ -288,7 +288,9 @@ public class UserController {
     })
     public ResponseJSONResult batchDelete(String strs){
         try {
-             String[] s = strs.split(",");
+            strs = strs.replace("[", "");
+            strs = strs.replace("]", "");
+            String[] s = strs.split(",");
              List<Integer> ids = new ArrayList<Integer>();
              for (String str : s) {
                  ids.add(Integer.parseInt(str));
