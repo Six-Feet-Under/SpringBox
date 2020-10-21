@@ -321,7 +321,7 @@ public class LogController {
         }
 
         //创建HSSFWorkbook
-        SXSSFWorkbook wb = ExcelUtil.getSXSSFWorkbook(sheetName, new String[]{"日志id", "日志类型", "操作Id", "用户id","目标","操作时间","详细数据"}, content, null);
+        SXSSFWorkbook wb = ExcelUtil.getSXSSFWorkbook(sheetName, new String[]{"日志id", "日志类型", "操作Id","操作结果" ,"用户id","目标","操作时间","详细数据"}, content, null);
 
         //响应到客户端
         try {
