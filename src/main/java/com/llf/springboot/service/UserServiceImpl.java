@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,5 +105,13 @@ public class UserServiceImpl implements UserService{
 
 		return	userMapper.insertUser(map);
 
+	}
+
+	@Override
+	public Map selectPageAll(int pageNum,int countNum) {
+		Map map = new HashMap();
+		map.put("list",userMapper.selectPageAll(pageNum,countNum));
+		map.put("count",userMapper.count());
+		return map;
 	}
 }

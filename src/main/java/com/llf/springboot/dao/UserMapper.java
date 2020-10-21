@@ -16,7 +16,9 @@ public interface UserMapper {
 
     int insertkey(Map map);
 
+    List<User>  selectPageAll(int pageNum,int countNum);
 
+    Integer count();
 
     Map checkkey(Map map);
 
