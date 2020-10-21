@@ -39,6 +39,20 @@
         </where>
     </select>
 
+    <select id="selectPageAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select *from user
+        <where>
+        <if test="param3!=null and param3!=''">
+            uid like "%"#{param3}"%" or name like "%"#{param3}"%"
+        </if>
+        </where>
+             limit #{param1},#{param2}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from user
+    </select>
+
     <select id="checkkey"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
         select time from user where id = #{id}
     </select>
@@ -183,11 +197,12 @@
     </select>
 
     <!--批量删除 -->
-    <delete id="batchDeletes" parameterType="java.util.List">
-        DELETE FROM tp_user where uname in
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item}
+     <delete id="batchDeletes" parameterType="list">
+        delete from user where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
         </foreach>
     </delete>
+
 
 </mapper>
