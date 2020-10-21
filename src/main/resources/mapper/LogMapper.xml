@@ -24,7 +24,7 @@ FROM
 	log join user on log.actionId=user.uid limit #{param1},#{param2}
     </select>
 
-    <select id="selectAll" resultMap="java.util.HashMap" >
+    <select id="selectAll" resultType="java.util.HashMap" >
 
     SELECT
 	log.id, log.types, user.`name` as actionId, log.actionResult ,log.uid, log.target, log.time, log.dataStr

@@ -32,4 +32,6 @@ public interface UserService {
     int isTrue(Long id );
 
     void batchDeletes(List delList);
+
+    int insertUser(Map map);
 }

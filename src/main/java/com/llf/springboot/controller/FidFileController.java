@@ -3,18 +3,24 @@ package com.llf.springboot.controller;
 import com.alibaba.fastjson.JSON;
 import com.llf.springboot.model.FidFile;
 import com.llf.springboot.service.FidFileService;
+import com.llf.springboot.util.ExcelUtil;
 import com.llf.springboot.util.ResponseJSONResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +55,7 @@ public class FidFileController {
     public ResponseJSONResult selectList(Integer pageNum, Integer countNum,String txt) {
         try {
             pageNum = (pageNum-1)*countNum;
-            return ResponseJSONResult.ok(fidFileService.selectAll(pageNum,countNum));
+            return ResponseJSONResult.ok(fidFileService.selectAll(pageNum,countNum,txt));
         }catch (Exception e){
             return ResponseJSONResult.errorMsg("信息错误");
         }
@@ -189,6 +195,58 @@ public class FidFileController {
     @RequestMapping(value = "/fidFile/selectById", method = RequestMethod.POST)
     public ResponseJSONResult selectById(String fid) {
         return ResponseJSONResult.ok(fidFileService.selectById(fid));
+    }
+
+    /**
+     * 导出t_site为Excel
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping(value = "/fidFile/exportExcelOfSite", method = RequestMethod.GET)
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "response",required = true,
+            dataType = "reponse",paramType = "Excel")
+
+    )
+    public void exportExcelOfSite(HttpServletResponse response) throws Exception {
+        //要导出文件的list集合
+        List<Map> list = new ArrayList();
+        //list = deviceGroupService.listSite(map);
+        list = fidFileService.listFile();
+        String fileName = "文件列表·" + System.currentTimeMillis() + ".xlsx";
+
+        //sheet名
+        String sheetName = "文件信息";
+
+        String[][] content = new String[list.size()][8];
+
+        for (int i = 0; i < list.size(); i++) {
+
+            Map obj = list.get(i);
+            String state = null;//状态
+
+            ExcelUtil su = new ExcelUtil();
+            content[i][0] = su.cecknull(String.valueOf(obj.get("fid")));
+            content[i][1] = su.cecknull(String.valueOf(obj.get("fileName")));
+            content[i][2] = su.cecknull(String.valueOf(obj.get("tag")));
+            content[i][3] = su.cecknull(String.valueOf(obj.get("fileDes")));
+            content[i][4] = su.cecknull(String.valueOf(obj.get("fileWhere")));
+            content[i][5] = su.cecknull(String.valueOf(obj.get("fileState")));
+        }
+
+        //创建HSSFWorkbook
+        SXSSFWorkbook wb = ExcelUtil.getSXSSFWorkbook(sheetName, new String[]{"文件id", "文件名", "类型", "说明","位置","状态"}, content, null);
+
+        //响应到客户端
+        try {
+            ExcelUtil.setResponseHeader(response, fileName);
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

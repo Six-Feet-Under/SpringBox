@@ -16,6 +16,8 @@ public interface UserMapper {
 
     int insertkey(Map map);
 
+
+
     Map checkkey(Map map);
 
     int updateByKey(Map map);
@@ -33,4 +35,6 @@ public interface UserMapper {
     int isTrue(Long id);
 
     void batchDeletes(List delList);
+
+    int insertUser(Map map);
 }

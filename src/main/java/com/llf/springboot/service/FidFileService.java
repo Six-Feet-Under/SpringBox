@@ -21,9 +21,11 @@ public interface FidFileService {
 
     FidFile selectById(String fid);
 
-    Map selectAll(Integer pageNum,Integer countNum);
+    Map selectAll(Integer pageNum,Integer countNum,String txt);
 
     int insertfidFile(FidFile fidFile);
 
     int updatefidFile(FidFile fidFile);
+
+    List listFile();
 }
