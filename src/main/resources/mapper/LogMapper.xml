@@ -21,7 +21,7 @@
     SELECT
 	log.id, log.types, user.`name` as actionId, log.actionResult ,log.uid, log.target, log.time, log.dataStr
 FROM
-	log join user on log.actionId=user.uid limit #{param1},#{param2}
+	log left join user on log.actionId=user.uid limit #{param1},#{param2}
     </select>
 
     <select id="selectAll" resultType="java.util.HashMap" >
@@ -29,7 +29,7 @@ FROM
     SELECT
 	log.id, log.types, user.`name` as actionId, log.actionResult ,log.uid, log.target, log.time, log.dataStr
 FROM
-	log join user on log.actionId=user.uid
+	log left join user on log.actionId=user.uid
     </select>
 
     <select id="count" resultType="java.lang.Integer">
