@@ -231,12 +231,8 @@ public class UserController {
         try{
             pwd = MD5Util.create(pwd);
             User user = userService.login(name, pwd);
-            if (user.getGrade().equals("1") || user.getGrade().equals("3") ){
                 //return 用户；
                 return ResponseJSONResult.ok(user.getGrade());
-            } else{
-                return  ResponseJSONResult.errorSqlMsg("user为空");
-            }
         }catch (Exception e ){
             return ResponseJSONResult.errorNullSql("sql错误");
         }

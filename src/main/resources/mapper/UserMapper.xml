@@ -141,7 +141,7 @@
     <select id="login"  resultType="com.llf.springboot.model.User" parameterType="java.lang.String">
         select *
         from user
-        where name =#{name} and pwd =#{pwd}
+        where name =#{name} and pwd =#{pwd} and grade="3"
     </select>
 
     <delete id="deleteUserById" parameterType="java.lang.Long" >
