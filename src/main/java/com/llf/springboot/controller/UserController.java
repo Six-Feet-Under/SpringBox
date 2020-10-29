@@ -3,7 +3,6 @@ package com.llf.springboot.controller;
 import com.alibaba.fastjson.JSON;
 import com.llf.springboot.model.User;
 import com.llf.springboot.service.UserService;
-import com.llf.springboot.util.DateUtils;
 import com.llf.springboot.util.MD5Util;
 import com.llf.springboot.util.PagedResult;
 import com.llf.springboot.util.ResponseJSONResult;
@@ -11,15 +10,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.*;
-import java.lang.reflect.Method;
 import java.util.*;
 
 
@@ -29,7 +22,6 @@ public class UserController {
 
     @Autowired
     public UserService userService;
-    public DateUtils dateUtils;
 
     @ApiOperation(value = "获取用户信息接口", notes = "用户信息列表")
     @RequestMapping(value = "/user/selectAll", method = RequestMethod.POST)
@@ -171,11 +163,16 @@ public class UserController {
                 strs = strs.replace(", ", ",");
                 strs = strs.replace(" ", ",");
                 strs = strs.replace("null", "-1");
+            Map map = null;
             List lisMap = JSON.parseArray(strs);
              for (int i = 0; i < lisMap.size(); i++) {
-                Map map = JSON.parseObject(lisMap.get(i).toString());
-                userService.insertUser(map);
+                 map = JSON.parseObject(lisMap.get(i).toString());
             }
+            map.put("pwd",MD5Util.create((String) map.get("pwd")));
+            map.put("time",System.currentTimeMillis());
+            map.put("timeMake",System.currentTimeMillis());
+            map.put("timeOut",System.currentTimeMillis());
+            userService.insertUser(map);
             return ResponseJSONResult.ok("成功");
         } catch (Exception e) {
             return ResponseJSONResult.errorSqlMsg("格式错误");
@@ -214,6 +211,9 @@ public class UserController {
         //strs="[{_id=\"8\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"1\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"3\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
         try {
              user.setPwd(MD5Util.create(user.getPwd()));
+             user.setTime(System.currentTimeMillis());
+             user.setTimeMake(System.currentTimeMillis());
+             user.setTimeOut(System.currentTimeMillis());
              userService.registerUser(user);
              return ResponseJSONResult.ok(user.getGrade());
         } catch (Exception e) {
@@ -232,7 +232,7 @@ public class UserController {
             pwd = MD5Util.create(pwd);
             User user = userService.login(name, pwd);
                 //return 用户；
-                return ResponseJSONResult.ok(user.getGrade());
+                return ResponseJSONResult.ok(user);
         }catch (Exception e ){
             return ResponseJSONResult.errorNullSql("sql错误");
         }
