@@ -119,4 +119,9 @@ public class UserServiceImpl implements UserService{
 	public int selectByUId(String uid) {
 		return userMapper.selectByUId(uid);
 	}
+
+	@Override
+	public String selectUidSelf(Long id) {
+		return userMapper.selectUidSelf(id);
+	}
 }

@@ -72,7 +72,7 @@
 
     <insert id="insertUser" parameterType="java.util.HashMap">
      insert into user (id, uid, name, pwd, phone,time, timeOut, timeMake, pwdhint,grade,abandon)
-    values (#{id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{PwdHint}, #{Grade}, #{Abandon})
+    values (#{id}, #{uid},#{name}, #{pwd}, #{phone}, #{time},#{timeOut}, #{timeMake}, #{pwdhint}, #{grade}, #{abandon})
     </insert>
 
     <update id="updateByKey" parameterType="java.util.HashMap">
@@ -198,6 +198,10 @@
 
     <select id="selectByUId" parameterType="java.lang.String" resultType="java.lang.Integer">
         select  count(1) from user where uid =#{uid}
+    </select>
+
+    <select id="selectUidSelf" parameterType="java.lang.Long" resultType="java.lang.String">
+        select uid from user where id=#{id}
     </select>
     <!--批量删除 -->
      <delete id="batchDeletes" parameterType="list">

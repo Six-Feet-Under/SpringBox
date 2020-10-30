@@ -38,4 +38,6 @@ public interface UserService {
     Map selectPageAll(int pageNum,int countNum,String key);
 
     int selectByUId(String uid);
+
+    String selectUidSelf(Long id);
 }

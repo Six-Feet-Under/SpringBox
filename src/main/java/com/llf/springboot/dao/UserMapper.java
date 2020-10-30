@@ -41,4 +41,6 @@ public interface UserMapper {
     int insertUser(Map map);
 
     Integer selectByUId(String uid);
+
+    String selectUidSelf(Long id);
 }
