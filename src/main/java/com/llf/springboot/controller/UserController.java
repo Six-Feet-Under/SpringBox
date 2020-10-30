@@ -164,18 +164,28 @@ public class UserController {
                 strs = strs.replace(" ", ",");
                 strs = strs.replace("null", "-1");
             Map map = null;
+           int sum = 0;
+           int inum = 0;
             List lisMap = JSON.parseArray(strs);
              for (int i = 0; i < lisMap.size(); i++) {
                  map = JSON.parseObject(lisMap.get(i).toString());
-            }
-            map.put("pwd",MD5Util.create((String) map.get("pwd")));
-            map.put("time",System.currentTimeMillis());
-            map.put("timeMake",System.currentTimeMillis());
-            map.put("timeOut",System.currentTimeMillis());
-            userService.insertUser(map);
-            return ResponseJSONResult.ok("成功");
+                 sum++;
+                   map.put("pwd",MD5Util.create((String) map.get("pwd")));
+                   map.put("time",System.currentTimeMillis());
+                   map.put("timeMake",System.currentTimeMillis());
+                   map.put("timeOut",System.currentTimeMillis());
+            if(!userService.selectByUId((String)map.get("uid")))
+                userService.insertUser(map);
+                inum++;
+             }
+             Map retMap = new HashMap();
+            String sumlog = "总数：" + sum + "新增：" + inum ;
+            retMap.put("inum",inum);
+            retMap.put("sum",sum);
+            retMap.put("msg",sumlog);
+            return ResponseJSONResult.ok(retMap);
         } catch (Exception e) {
-            return ResponseJSONResult.errorSqlMsg("格式错误");
+            return ResponseJSONResult.errorSqlMsg("uid已存在");
         }
     }
 
@@ -214,10 +224,11 @@ public class UserController {
              user.setTime(System.currentTimeMillis());
              user.setTimeMake(System.currentTimeMillis());
              user.setTimeOut(System.currentTimeMillis());
-             userService.registerUser(user);
+             if(!userService.selectByUId(user.getUid()))
+                userService.registerUser(user);
              return ResponseJSONResult.ok(user.getGrade());
         } catch (Exception e) {
-            return ResponseJSONResult.ok("格式错误");
+            return ResponseJSONResult.ok("uid已存在");
         }
     }
 

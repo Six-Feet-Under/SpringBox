@@ -39,4 +39,6 @@ public interface UserMapper {
     void batchDeletes(List delList);
 
     int insertUser(Map map);
+
+    boolean selectByUId(String uid);
 }

@@ -196,6 +196,9 @@
         select * from user where id =#{id}
     </select>
 
+    <select id="selectByUId" parameterType="java.lang.String" resultType="java.lang.Boolean">
+        select * from user where uid =#{uid}
+    </select>
     <!--批量删除 -->
      <delete id="batchDeletes" parameterType="list">
         delete from user where id in

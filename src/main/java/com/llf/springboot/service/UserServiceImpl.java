@@ -114,4 +114,9 @@ public class UserServiceImpl implements UserService{
 		map.put("count",userMapper.count());
 		return map;
 	}
+
+	@Override
+	public boolean selectByUId(String uid) {
+		return userMapper.selectByUId(uid);
+	}
 }

@@ -36,4 +36,6 @@ public interface UserService {
     int insertUser(Map map);
 
     Map selectPageAll(int pageNum,int countNum,String key);
+
+    boolean selectByUId(String uid);
 }
