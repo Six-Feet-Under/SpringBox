@@ -17,7 +17,7 @@ public interface UserService {
 
     Map checkkey(Map map);
 
-    User login(String name, String pwd);
+    User login(String uid, String pwd);
 
     User selectById(Long id);
 

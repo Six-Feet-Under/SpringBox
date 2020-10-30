@@ -247,10 +247,10 @@ public class UserController {
             @ApiImplicitParam(name = "name", value = "用户名", required = true, dataType = "string", paramType = "String"),
             @ApiImplicitParam(name = "pwd", value = "登录密码", required = true, dataType = "string", paramType = "String")
     })
-    public ResponseJSONResult login(String name, String pwd) {
+    public ResponseJSONResult login(String uid, String pwd) {
         try {
             pwd = MD5Util.create(pwd);
-            User user = userService.login(name, pwd);
+            User user = userService.login(uid, pwd);
             //return 用户；
             return ResponseJSONResult.ok(user);
         } catch (Exception e) {
