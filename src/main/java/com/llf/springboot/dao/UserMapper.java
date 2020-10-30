@@ -40,5 +40,5 @@ public interface UserMapper {
 
     int insertUser(Map map);
 
-    boolean selectByUId(String uid);
+    Integer selectByUId(String uid);
 }

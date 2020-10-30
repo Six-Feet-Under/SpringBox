@@ -174,9 +174,9 @@ public class UserController {
                    map.put("time",System.currentTimeMillis());
                    map.put("timeMake",System.currentTimeMillis());
                    map.put("timeOut",System.currentTimeMillis());
-            if(!userService.selectByUId((String)map.get("uid")))
+                 if(userService.selectByUId((String)map.get("uid"))==0){
                 userService.insertUser(map);
-                inum++;
+                inum++;}
              }
              Map retMap = new HashMap();
             String sumlog = "总数：" + sum + "新增：" + inum ;
@@ -224,11 +224,14 @@ public class UserController {
              user.setTime(System.currentTimeMillis());
              user.setTimeMake(System.currentTimeMillis());
              user.setTimeOut(System.currentTimeMillis());
-             if(!userService.selectByUId(user.getUid()))
+             if(userService.selectByUId(user.getUid())==0){
                 userService.registerUser(user);
-             return ResponseJSONResult.ok(user.getGrade());
+                 return ResponseJSONResult.ok(user.getGrade());
+             }else{
+                 return ResponseJSONResult.ok("uid已存在");
+             }
         } catch (Exception e) {
-            return ResponseJSONResult.ok("uid已存在");
+            return ResponseJSONResult.ok("数据格式错误");
         }
     }
 

@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean selectByUId(String uid) {
+	public int selectByUId(String uid) {
 		return userMapper.selectByUId(uid);
 	}
 }
