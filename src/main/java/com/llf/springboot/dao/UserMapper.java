@@ -18,7 +18,7 @@ public interface UserMapper {
 
     List<User>  selectPageAll(int pageNum,int countNum,String key);
 
-    Integer count();
+    Integer count(@Param("key") String key);
 
     Map checkkey(Map map);
 

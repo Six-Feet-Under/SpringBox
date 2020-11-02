@@ -2,6 +2,7 @@ package com.llf.springboot.service;
 
 import com.llf.springboot.dao.UserMapper;
 import com.llf.springboot.model.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -111,7 +112,7 @@ public class UserServiceImpl implements UserService{
 	public Map selectPageAll(int pageNum,int countNum,String key) {
 		Map map = new HashMap();
 		map.put("list",userMapper.selectPageAll(pageNum,countNum,key));
-		map.put("count",userMapper.count());
+		map.put("count", userMapper.count(key));
 		return map;
 	}
 
