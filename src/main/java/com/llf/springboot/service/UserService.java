@@ -37,5 +37,7 @@ public interface UserService {
 
     Map selectPageAll(int pageNum,int countNum,String key);
 
-    boolean selectByUId(String uid);
+    int selectByUId(String uid);
+
+    String selectUidSelf(Long id);
 }

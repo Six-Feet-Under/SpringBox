@@ -58,7 +58,7 @@ public class UserController {
     public ResponseJSONResult selectAll(User user) {
         List<User> list = userService.selectList(user);
         int count = list.size();
-        int pageSize =  10;
+        int pageSize = 10;
         int page = count / pageSize;
         PagedResult result = new PagedResult();
         if (page == 0) {
@@ -98,22 +98,23 @@ public class UserController {
             return ResponseJSONResult.ok("格式错误");
         }
     }
+
     @ApiOperation(value = "分页查询用户信息接口", notes = "分页查询用户信息")
     @RequestMapping(value = "/user/selectPageAll", method = RequestMethod.POST)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "查询第几页",required = true,
-                    dataType = "Integer",paramType = "list"),
-            @ApiImplicitParam(name = "countNum",value = "每页的数据条数",required = true,
-                    dataType = "Integer",paramType = "list"),
-            @ApiImplicitParam(name = "key",value = "过滤条件",required = false,
-                    dataType = "String",paramType = "list")
+            @ApiImplicitParam(name = "pageNum", value = "查询第几页", required = true,
+                    dataType = "Integer", paramType = "list"),
+            @ApiImplicitParam(name = "countNum", value = "每页的数据条数", required = true,
+                    dataType = "Integer", paramType = "list"),
+            @ApiImplicitParam(name = "key", value = "过滤条件", required = false,
+                    dataType = "String", paramType = "list")
     })
-    public ResponseJSONResult selectPageAll(int pageNum,int countNum,String key){
-            try {
-                pageNum = (pageNum-1)*countNum;
-                return ResponseJSONResult.ok(userService.selectPageAll(pageNum,countNum,key));
-            }catch (Exception e){
-                return ResponseJSONResult.errorMsg("信息错误");
+    public ResponseJSONResult selectPageAll(int pageNum, int countNum, String key) {
+        try {
+            pageNum = (pageNum - 1) * countNum;
+            return ResponseJSONResult.ok(userService.selectPageAll(pageNum, countNum, key));
+        } catch (Exception e) {
+            return ResponseJSONResult.errorMsg("信息错误");
         }
     }
 
@@ -127,8 +128,8 @@ public class UserController {
         int sum = 0;
         int sumin = 0;
         int sumup = 0;
-       // strs="[{id=\"11\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"111\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"122\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
-       //strs="[{id=\"22\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" abandon=\"false\" grade=\"1\" pwdhint=\"\"}]";
+        // strs="[{id=\"11\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"111\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"122\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
+        //strs="[{id=\"22\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" abandon=\"false\" grade=\"1\" pwdhint=\"\"}]";
         try {
             strs = strs.replace("=", ":");
             strs = strs.replace(", ", ",");
@@ -138,8 +139,12 @@ public class UserController {
             for (int i = 0; i < lisMap.size(); i++) {
                 Map map = JSON.parseObject(lisMap.get(i).toString());
                 sum++;
-                if (userService.insertkey(map) == 1) {sumin++;}
-                if (userService.insertkey(map) == 2) {sumup++;}
+                if (userService.insertkey(map) == 1) {
+                    sumin++;
+                }
+                if (userService.insertkey(map) == 2) {
+                    sumup++;
+                }
             }
             String sumlog = "总数：" + sum + "新增：" + sumin + "更新：" + sumup;
             return ResponseJSONResult.ok(sumlog);
@@ -159,30 +164,31 @@ public class UserController {
         // strs="[{id=\"11\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"111\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"122\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
         //strs="[{id=\"22\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" abandon=\"false\" grade=\"1\" pwdhint=\"\"}]";
         try {
-                strs = strs.replace("=", ":");
-                strs = strs.replace(", ", ",");
-                strs = strs.replace(" ", ",");
-                strs = strs.replace("null", "-1");
+            strs = strs.replace("=", ":");
+            strs = strs.replace(", ", ",");
+            strs = strs.replace(" ", ",");
+            strs = strs.replace("null", "-1");
             Map map = null;
-           int sum = 0;
-           int inum = 0;
+            int sum = 0;
+            int inum = 0;
             List lisMap = JSON.parseArray(strs);
-             for (int i = 0; i < lisMap.size(); i++) {
-                 map = JSON.parseObject(lisMap.get(i).toString());
-                 sum++;
-                   map.put("pwd",MD5Util.create((String) map.get("pwd")));
-                   map.put("time",System.currentTimeMillis());
-                   map.put("timeMake",System.currentTimeMillis());
-                   map.put("timeOut",System.currentTimeMillis());
-            if(!userService.selectByUId((String)map.get("uid")))
-                userService.insertUser(map);
-                inum++;
-             }
-             Map retMap = new HashMap();
-            String sumlog = "总数：" + sum + "新增：" + inum ;
-            retMap.put("inum",inum);
-            retMap.put("sum",sum);
-            retMap.put("msg",sumlog);
+            for (int i = 0; i < lisMap.size(); i++) {
+                map = JSON.parseObject(lisMap.get(i).toString());
+                sum++;
+                map.put("pwd", MD5Util.create((String) map.get("pwd")));
+                map.put("time", System.currentTimeMillis());
+                map.put("timeMake", System.currentTimeMillis());
+                map.put("timeOut", System.currentTimeMillis());
+                if (userService.selectByUId((String) map.get("uid")) == 0) {
+                    userService.insertUser(map);
+                    inum++;
+                }
+            }
+            Map retMap = new HashMap();
+            String sumlog = "总数：" + sum + "新增：" + inum;
+            retMap.put("inum", inum);
+            retMap.put("sum", sum);
+            retMap.put("msg", sumlog);
             return ResponseJSONResult.ok(retMap);
         } catch (Exception e) {
             return ResponseJSONResult.errorSqlMsg("uid已存在");
@@ -220,31 +226,34 @@ public class UserController {
     public ResponseJSONResult registerkey(User user) {
         //strs="[{_id=\"8\" uid=\"z111111\" name=\"z111111\" pwd=\"94cc9d056a08cc894e79577ff94e31f2\" time=\"1593602583466\" timeOut=\"null\" timeMake=\"null\" phone=\"\" Abandon=\"false\" Grade=\"1\" PwdHint=\"\"}, {_id=\"1\" uid=\"000000\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1593758764185\" timeOut=\"null\" timeMake=\"1593595736930\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"false\"}, {_id=\"3\" uid=\"000001\" name=\"超级管理员\" pwd=\"5fa248d86523616ce115d1358312ebb9\" time=\"1594718739785\" timeOut=\"null\" timeMake=\"1593758999492\" phone=\"\" PwdHint=\"\" Grade=\"3\" Abandon=\"true\"}]";
         try {
-             user.setPwd(MD5Util.create(user.getPwd()));
-             user.setTime(System.currentTimeMillis());
-             user.setTimeMake(System.currentTimeMillis());
-             user.setTimeOut(System.currentTimeMillis());
-             if(!userService.selectByUId(user.getUid()))
+            user.setPwd(MD5Util.create(user.getPwd()));
+            user.setTime(System.currentTimeMillis());
+            user.setTimeMake(System.currentTimeMillis());
+            user.setTimeOut(System.currentTimeMillis());
+            if (userService.selectByUId(user.getUid()) == 0) {
                 userService.registerUser(user);
-             return ResponseJSONResult.ok(user.getGrade());
+                return ResponseJSONResult.ok(user.getGrade());
+            } else {
+                return ResponseJSONResult.ok("uid已存在");
+            }
         } catch (Exception e) {
-            return ResponseJSONResult.ok("uid已存在");
+            return ResponseJSONResult.ok("数据格式错误");
         }
     }
 
-    @ApiOperation(value = "登录",notes = "用户登录")
-    @RequestMapping(value="/user/login",method=RequestMethod.POST)
+    @ApiOperation(value = "登录", notes = "用户登录")
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "用户名", required = true, dataType = "string", paramType = "String"),
             @ApiImplicitParam(name = "pwd", value = "登录密码", required = true, dataType = "string", paramType = "String")
-            })
-    public ResponseJSONResult login( String name, String pwd) {
-        try{
+    })
+    public ResponseJSONResult login(String name, String pwd) {
+        try {
             pwd = MD5Util.create(pwd);
             User user = userService.login(name, pwd);
-                //return 用户；
-                return ResponseJSONResult.ok(user);
-        }catch (Exception e ){
+            //return 用户；
+            return ResponseJSONResult.ok(user);
+        } catch (Exception e) {
             return ResponseJSONResult.errorNullSql("sql错误");
         }
 
@@ -271,60 +280,61 @@ public class UserController {
 //		}
 //	}
 
-    @ApiOperation(value = "删除",notes = "根据用户Id删除用户")
-    @RequestMapping(value = "/user/deleteById",method= RequestMethod.POST)
+    @ApiOperation(value = "删除", notes = "根据用户Id删除用户")
+    @RequestMapping(value = "/user/deleteById", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户id", required = true,
                     dataType = "Long", paramType = "Long")
     })
-    public ResponseJSONResult deleteUserById(Long id){
-        try{
+    public ResponseJSONResult deleteUserById(Long id) {
+        try {
             userService.deleteUserById(id);
-            if(id == 0){
+            if (id == 0) {
                 return ResponseJSONResult.errorNullSql("id为空");
             }
             return ResponseJSONResult.ok(id);
-        }catch (Exception e){
-        //return  “sucess”
-        return ResponseJSONResult.errorSqlMsg("sql错误");}
+        } catch (Exception e) {
+            //return  “sucess”
+            return ResponseJSONResult.errorSqlMsg("sql错误");
+        }
     }
 
-    @ApiOperation(value = "批量删除",notes = "根据用户Id批量删除用户")
-    @RequestMapping(value = "/user/batchDelete",method= RequestMethod.POST)
+    @ApiOperation(value = "批量删除", notes = "根据用户Id批量删除用户")
+    @RequestMapping(value = "/user/batchDelete", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "strs", value = "批量删除的id数组", required = true,
                     dataType = "String", paramType = "String")
     })
-    public ResponseJSONResult batchDelete(String strs){
+    public ResponseJSONResult batchDelete(String strs) {
         try {
             strs = strs.replace("[", "");
             strs = strs.replace("]", "");
             String[] s = strs.split(",");
-             List<Integer> ids = new ArrayList<Integer>();
-             for (String str : s) {
-                 ids.add(Integer.parseInt(str));
-             }
+            List<Integer> ids = new ArrayList<Integer>();
+            for (String str : s) {
+                ids.add(Integer.parseInt(str));
+            }
             userService.batchDeletes(ids);
-             return ResponseJSONResult.ok("成功");
-             }catch (Exception e){
+            return ResponseJSONResult.ok("成功");
+        } catch (Exception e) {
             return ResponseJSONResult.errorSqlMsg("失败");
-                  }
+        }
     }
 
-    @ApiOperation(value = "根据Id查询用户接口",notes = "根据Id查询用户信息")
-    @RequestMapping(value = "/user/selectById",method= RequestMethod.POST)
+    @ApiOperation(value = "根据Id查询用户接口", notes = "根据Id查询用户信息")
+    @RequestMapping(value = "/user/selectById", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户id", required = true,
                     dataType = "Long", paramType = "Long")
     })
-    public ResponseJSONResult selectById(Long id){
-        try{
+    public ResponseJSONResult selectById(Long id) {
+        try {
             User user = userService.selectById(id);
-            if(user == null){
-                return  ResponseJSONResult.errorNullSql("user为空");
+            if (user == null) {
+                return ResponseJSONResult.errorNullSql("user为空");
             }
             return ResponseJSONResult.ok(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseJSONResult.errorSqlMsg("sql错误");
         }
     }
@@ -369,8 +379,8 @@ public class UserController {
 //        return "user";
 //    }
 
-    @ApiOperation(value = "修改用户",notes = "修改用户信息")
-    @RequestMapping(value = "/user/updateKey",method= RequestMethod.POST)
+    @ApiOperation(value = "修改用户", notes = "修改用户信息")
+    @RequestMapping(value = "/user/updateKey", method = RequestMethod.POST)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "user", value = "" +
                     " /** 自增主键 */\n" +
@@ -398,19 +408,28 @@ public class UserController {
 
                     dataType = "User", paramType = "User")
     })
-    public ResponseJSONResult updateKey(User user){
-
+    public ResponseJSONResult updateKey(User user) {
         try {
-            if (userService.updateUser(user) == 1) {
-                return ResponseJSONResult.ok(1);
+            if(user.getPwd()!=null){
+            user.setPwd(MD5Util.create(user.getPwd()));
+            }
+            if (userService.selectByUId(user.getUid()) == 0 || userService.selectUidSelf(user.getId()).equals(user.getUid())) {
+                if (userService.updateUser(user) == 1) {
+                    return ResponseJSONResult.ok(1);
+                }else{
+                    return ResponseJSONResult.ok("新增失败");
+                }
             } else {
-                return ResponseJSONResult.ok(3);
+                return ResponseJSONResult.errorMsg("uid已存在");
             }
         } catch (Exception e) {
             return ResponseJSONResult.ok("user错误");
         }
-}
+    }
 
+    private String getPwd(User user) {
+        return user.getPwd();
+    }
 
 
     @RequestMapping(value = "/user/isTrue",method= RequestMethod.POST)
