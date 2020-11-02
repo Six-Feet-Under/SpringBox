@@ -51,6 +51,11 @@
 
     <select id="count" resultType="java.lang.Integer">
         select count(*) from user
+        <where>
+            <if test="param3!=null and param3!=''">
+                uid like "%"#{param3}"%" or name like "%"#{param3}"%"
+            </if>
+        </where>
     </select>
 
     <select id="checkkey"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
