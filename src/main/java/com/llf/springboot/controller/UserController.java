@@ -414,7 +414,7 @@ public class UserController {
     })
     public ResponseJSONResult updateKey(User user) {
         try {
-            if(user.getPwd()!=null){
+            if(user.getPwd()!=null && user.getPwd() != "" && !user.getPwd().equals("")){
             user.setPwd(MD5Util.create(user.getPwd()));
             }
             if (userService.selectByUId(user.getUid()) == 0 || userService.selectUidSelf(user.getId()).equals(user.getUid())) {
