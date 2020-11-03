@@ -149,10 +149,10 @@
         where uid =#{uid} and pwd =#{pwd} and (grade="3" or grade="2")
     </select>
 
-    <delete id="deleteUserById" parameterType="java.lang.Long" >
+    <delete id="deleteUserById"  parameterType="java.lang.Long" >
         delete
         from user
-        where id =#{id}
+        where id =#{id} and grade != "3"
     </delete>
 
     <select id="selectById"  resultType="com.llf.springboot.model.User" parameterType="java.lang.Long">
@@ -209,8 +209,8 @@
         select uid from user where id=#{id}
     </select>
     <!--批量删除 -->
-     <delete id="batchDeletes" parameterType="list">
-        delete from user where id in
+     <delete id="batchDeletes" parameterType="list" >
+        delete from user where grade != "3" and id in
         <foreach collection="list" item="id" open="(" close=")" separator=",">
             #{id}
         </foreach>

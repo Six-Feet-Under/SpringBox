@@ -21,7 +21,7 @@ public interface UserService {
 
     User selectById(Long id);
 
-    void deleteUserById(Long id);
+    int deleteUserById(Long id);
 
     void registerUser(User user);
 
@@ -31,7 +31,7 @@ public interface UserService {
 
     int isTrue(Long id );
 
-    void batchDeletes(List delList);
+    int batchDeletes(List delList);
 
     int insertUser(Map map);
 

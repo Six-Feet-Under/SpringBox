@@ -288,11 +288,13 @@ public class UserController {
     })
     public ResponseJSONResult deleteUserById(Long id) {
         try {
-            userService.deleteUserById(id);
             if (id == 0) {
                 return ResponseJSONResult.errorNullSql("id为空");
             }
-            return ResponseJSONResult.ok(id);
+            if(userService.deleteUserById(id)==0){
+                return ResponseJSONResult.errorSqlMsg("不能删除超级管理员");
+            }else{
+            return ResponseJSONResult.ok(id);}
         } catch (Exception e) {
             //return  “sucess”
             return ResponseJSONResult.errorSqlMsg("sql错误");
@@ -314,8 +316,10 @@ public class UserController {
             for (String str : s) {
                 ids.add(Integer.parseInt(str));
             }
-            userService.batchDeletes(ids);
-            return ResponseJSONResult.ok("成功");
+            if(userService.batchDeletes(ids) == 0){
+                return ResponseJSONResult.errorSqlMsg("批量删除包括超级管理员");
+            }else{
+            return ResponseJSONResult.ok("成功");}
         } catch (Exception e) {
             return ResponseJSONResult.errorSqlMsg("失败");
         }

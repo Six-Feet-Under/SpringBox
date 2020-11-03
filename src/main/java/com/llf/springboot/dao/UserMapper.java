@@ -26,7 +26,7 @@ public interface UserMapper {
 
     User login(@Param("uid") String uid,@Param("pwd") String pwd);
 
-    void deleteUserById(Long id);
+    int deleteUserById(Long id);
 
     User selectById(Long id);
 
@@ -36,7 +36,7 @@ public interface UserMapper {
 
     int isTrue(Long id);
 
-    void batchDeletes(List delList);
+    int batchDeletes(List delList);
 
     int insertUser(Map map);
 

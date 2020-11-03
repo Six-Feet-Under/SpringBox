@@ -63,8 +63,8 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public void deleteUserById(Long id){
-		userMapper.deleteUserById(id);
+	public int deleteUserById(Long id){
+		return userMapper.deleteUserById(id);
 	}
 
 	@Override
@@ -97,8 +97,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void batchDeletes(List delList) {
-		 userMapper.batchDeletes(delList);
+	public int batchDeletes(List delList) {
+		return userMapper.batchDeletes(delList);
 	}
 
 	@Override
